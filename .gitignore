@@ -1,0 +1,5 @@
+# no pushear base de datos
+*.db
+
+# no pushear pycache
+**/__pycache__
