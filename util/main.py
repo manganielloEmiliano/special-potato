@@ -16,11 +16,4 @@ class Main(ABC):
         GestionarDAO.importar_csv(archivo_csv)
 
         #agregar aquí su código para completar las funcionalidades del TP
-        a1 = Area("Corporación Buenos Aires Sur") 
-        print(a1)
-        b1= Barrio("balvanera","3")
-        print(b1)
-        c1=Comuna("3")
-        print(c1)
-        empresa=Empresa("453322","pedro construcciones")
-        print(empresa)
+       

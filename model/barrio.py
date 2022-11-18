@@ -1,5 +1,8 @@
+from model.comuna import Comuna 
+
+
 class Barrio():
-    def __init__(self, nombre, comuna):
+    def __init__(self, nombre, comuna:Comuna):
         self.nombre = nombre
         self.comuna = comuna
 
