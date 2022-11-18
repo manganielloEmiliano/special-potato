@@ -7,6 +7,7 @@ from model.barrio import Barrio
 from model.TipoContratacion import TipoContratacion
 from model.empresa import Empresa
 from model.fuenteFinanciamiento import FuenteFinanciamiento
+from model.obra import Obra
 
 class GestionarModelo(ABC):
     __listado_obras = []
@@ -61,4 +62,9 @@ class GestionarModelo(ABC):
     def nueva_fuente_financiamiento(cls,descripcion:str)->FuenteFinanciamiento:
         obj=FuenteFinanciamiento(descripcion)
         cls.__listado_fuentes_financiamiento.append(obj)
+        return obj
+    
+    @classmethod
+    def nueva_obra(cls,entorno,nombre,etapa:Etapa,tipo_obra:TipoObra,area_responsable:Area, descripcion:str, monto_contrato:float, barrio:Barrio, direccion:str, licitacion_anio:int, beneficiarios:str)->Obra:
+        obj =Obra(cls,entorno,nombre,etapa,tipo_obra,area_responsable, descripcion, monto_contrato, barrio, direccion, licitacion_anio, beneficiarios)
         return obj
