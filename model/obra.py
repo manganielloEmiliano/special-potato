@@ -1,12 +1,14 @@
-import TipoContratacion
+from model.tipoContratacion import TipoContratacion
 from model.etapa import Etapa
 from model.tipoObra import TipoObra
 from model.barrio import Barrio
 from model.area import Area
 from model.empresa import Empresa
+from model.fuenteFinanciamiento import FuenteFinanciamiento
+from model.etapa import Etapa
 
 class Obra():
-    def __init__(self, entorno:str, nombre:str, etapa:Etapa, tipo_obra:TipoObra, area_responsable:Area, descripcion:str, monto_contrato:float, barrio:Barrio, direccion:str, fecha_inicio, fecha_fin_inicial, plazo_meses:int, porcentaje_avance:float, imagenes, empresa:Empresa, licitacion_anio:int, tipo_contratacion:TipoContratacion, nro_contratacion:str, beneficiarios:str, mano_obra:int, destacada:bool, expediente_numero:str, fuente_financiamiento:fuente_financiamiento):
+    def __init__(self, entorno:str, nombre:str, etapa:Etapa, tipo_obra:TipoObra, area_responsable:Area, descripcion:str, monto_contrato:float, barrio:Barrio, direccion:str, fecha_inicio, fecha_fin_inicial, plazo_meses:int, porcentaje_avance:float, imagenes, empresa:Empresa, licitacion_anio:int, tipo_contratacion:TipoContratacion, nro_contratacion:str, beneficiarios:str, mano_obra:int, destacada:bool, expediente_numero:str, fuente_financiamiento:FuenteFinanciamiento):
         self.entorno = entorno
         self.nombre = nombre
         self.etapa = etapa
@@ -217,7 +219,7 @@ class Obra():
         self.__fuente_financiamiento = value
     
     def __str__(self) -> str:
-        return "el entorno es: "+self.entorno +"\n el nombre de la obra es: "+self.nombre +"\n esta en la etapa de: "+self.etapa+"\n el tipo de obra es: "+str(self.tipo_obra)+"\n el area responsable es:"+str(self.__area_responsable) + "\n la descripcion es: "+self.__descripcion +"\n el monto del contrato es: "+str(self.monto_contrato)+"\nubicada  en el barrio de: "+str(self.barrio)+"\n la direccion es:"+self.direccion+"\n fecha de inicio"+str(self.fecha_inicio)+"\n la fecha prevista para la finalizacion es: "+str(self.__fecha_fin_inicial)+"\n el plazo de meses estimado es de: "+str(self.plazo_meses)+"meses"+"\nel porcentaje de avance es de:"+str(self.porcentaje_avance)+"%"+"\nla empresa acargo es:"+str(self.empresa)+"\nla licitacion es del anio"+str(self.licitacion_anio)+"\nel tipo de contratacion es: "+str(self.tipo_contratacion)+"\nel numero de contratacion es: "+self.nro_contratacion+"\nlos beneficiarios son: "+self.beneficiarios+"\nla mano de obra esta compuesta por: "+str(self.mano_obra)+"\nel expediente es el numero: "+self.expediente_numero+"\nla fuente de financiamiendo es: "+str(self.fuente_financiamiento)
+        return "el entorno es: "+self.__entorno +"\n el nombre de la obra es: "+self.__nombre +"\n esta en la etapa de: "+self.__etapa+"\n el tipo de obra es: "+str(self.__tipo_obra)+"\n el area responsable es:"+str(self.__area_responsable) + "\n la descripcion es: "+self.__descripcion +"\n el monto del contrato es: "+str(self.__monto_contrato)+"\nubicada  en el barrio de: "+str(self.__barrio)+"\n la direccion es:"+self.__direccion+"\n fecha de inicio"+str(self.__fecha_inicio)+"\n la fecha prevista para la finalizacion es: "+str(self.__fecha_fin_inicial)+"\n el plazo de meses estimado es de: "+str(self.__plazo_meses)+"meses"+"\nel porcentaje de avance es de:"+str(self.__porcentaje_avance)+"%"+"\nla empresa acargo es:"+str(self.__empresa)+"\nla licitacion es del anio"+str(self.__licitacion_anio)+"\nel tipo de contratacion es: "+str(self.__tipo_contratacion)+"\nel numero de contratacion es: "+self.__nro_contratacion+"\nlos beneficiarios son: "+self.__beneficiarios+"\nla mano de obra esta compuesta por: "+str(self.__mano_obra)+"\nel expediente es el numero: "+self.__expediente_numero+"\nla fuente de financiamiendo es: "+str(self.__fuente_financiamiento)
 
     def iniciar_contratacion(self, tipo: TipoContratacion, nro_contratacion):
         pass

@@ -4,7 +4,7 @@ from model.tipoObra import TipoObra
 from model.area import Area
 from model.comuna import Comuna
 from model.barrio import Barrio
-from model.TipoContratacion import TipoContratacion
+from model.tipoContratacion import TipoContratacion
 from model.empresa import Empresa
 from model.fuenteFinanciamiento import FuenteFinanciamiento
 from model.obra import Obra
