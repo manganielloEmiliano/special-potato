@@ -19,6 +19,7 @@ class Main(ABC):
         #agregar aquí su código para completar las funcionalidades del TP
         
         #punto 4.a del enunciado, creamos etapa "proyecto"
+
         try:
             obj_etapa=GestionarModelo.nueva_etapa("Proyecto")
             obj_dao_etapa =GestionarDAO.crear_objeto_dao("Etapa_DAO")
@@ -31,19 +32,48 @@ class Main(ABC):
 
         #pedimos valor por input 
 
+        print()
         print("seleccione el area que va a desarrollar la obra: ")
+        print()
 
-        opciones_area ="""
-        1: Corporación Buenos Aires Sur
-        2: Ministerio de Justicia y Seguridad
-        3: Secretarí­a de Transporte y Obras Públicas
-        4: Ministerio de Desarrollo Humano y Hábitat
-        5: Ministerio de Educación
-        6: Subsecretarí­a de Gestión Comunal
-        7: Ministerio de Salud
-        8: Ministerio de Espacio Público e Higiene Urbana
-        9: Instituto de la Vivienda
-        10: Ministerio de Cultura
+        opt1 = "Corporación Buenos Aires Sur"
+        opt2 = "Ministerio de Justicia y Seguridad"
+        opt3 = "Secretarí­a de Transporte y Obras Públicas"
+        opt4 = "Ministerio de Desarrollo Humano y Hábitat"
+        opt5 = "Ministerio de Educación"
+        opt6 = "Subsecretarí­a de Gestión Comunal"
+        opt7 = "Ministerio de Salud"
+        opt8 = "Ministerio de Espacio Público e Higiene Urbana"
+        opt9 = "Instituto de la Vivienda"
+        opt10 = "Ministerio de Cultura"
 
-        """
+        opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10]
+
+        #mostramos opciones de area
+
+        i = 1
+
+        for o in opciones:
+            print(i, " " , o)
+            i = i + 1
+
+        print()
+        opcion_elegida = int(input("Elija el número de opción: "))
+
+        #print(opciones[opcion_elegida - 1])
+
+        #creamos objeto del tipo area
+
+        try:
+            obj_area=GestionarModelo.nueva_area(opciones[opcion_elegida - 1])
+            print("area creada")
+        except:
+            print("fallo la creacion de area")
+
+        print(obj_area.descripcion)
+        
+        
+
+        
+        
       
