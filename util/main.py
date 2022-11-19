@@ -21,19 +21,19 @@ class Main(ABC):
         #punto 4.a del enunciado, creamos etapa "proyecto"
 
         try:
-            obj_etapa=GestionarModelo.nueva_etapa("Proyecto")
-            obj_dao_etapa =GestionarDAO.crear_objeto_dao("Etapa_DAO")
+            obj_etapa = GestionarModelo.nueva_etapa("Proyecto")
+            obj_dao_etapa = GestionarDAO.crear_objeto_dao("Etapa_DAO")
             GestionarDAO.insertar_registro(obj_dao_etapa,obj_etapa)
-            print("etapa creada")
+            print("Etapa creada con éxito")
         except:
-            print("fallo la creacion de etapa")
+            print("Falló la creación de etapa")
         
         #punto 4.b del enunciado, asignando valores
 
         #pedimos valor por input 
 
         print()
-        print("seleccione el area que va a desarrollar la obra: ")
+        print("Seleccione el área que va a desarrollar la obra: ")
         print()
 
         opt1 = "Corporación Buenos Aires Sur"
@@ -66,9 +66,9 @@ class Main(ABC):
 
         try:
             obj_area=GestionarModelo.nueva_area(opciones[opcion_elegida - 1])
-            print("area creada")
+            print("Área creada con éxito")
         except:
-            print("fallo la creacion de area")
+            print("Falló la creación de área")
 
         print(obj_area.descripcion)
         
