@@ -34,8 +34,8 @@ class Main(ABC):
 
         respuesta_area = preguntar_area()
 
-        #respuesta_tipo_obra = preguntar_tipo_obra()
+        respuesta_tipo_obra = preguntar_tipo_obra()
 
-        #print(respuesta_tipo_obra)
+        print(respuesta_tipo_obra)
         
       

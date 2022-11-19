@@ -38,7 +38,7 @@ def preguntar_tipo_obra():
     while True:
         if opcion_elegida > 0 and opcion_elegida < 11:
             try:
-                obj_tipo_area = GestionarModelo.nuevo_tipo_obra(opciones[opcion_elegida - 1])
+                obj_tipo_obra = GestionarModelo.nuevo_tipo_obra(opciones[opcion_elegida - 1])
                 print("Tipo de obra creada con éxito")
             
             except:
@@ -50,6 +50,7 @@ def preguntar_tipo_obra():
             opcion_elegida = int(input("Elija el número de opción: "))
 
     # retornamos el objeto
+    
     return obj_tipo_obra   
 
 def preguntar_area():
