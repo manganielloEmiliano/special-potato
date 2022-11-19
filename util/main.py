@@ -1,12 +1,14 @@
 from abc import ABC
 from util.gestionar_dao import GestionarDAO
 from util.gestionar_modelo import GestionarModelo
+from util.funciones import *
 from dao.area_dao import Area_DAO
 from dao.etapa_dao import Etapa_DAO
 from model.area import Area
 from model.barrio import Barrio
 from model.comuna import Comuna
 from model.empresa import Empresa
+
 class Main(ABC):
     
     @classmethod
@@ -30,50 +32,10 @@ class Main(ABC):
         
         #punto 4.b del enunciado, asignando valores
 
-        #pedimos valor por input 
+        respuesta_area = preguntar_area()
 
-        print()
-        print("Seleccione el área que va a desarrollar la obra: ")
-        print()
+        #respuesta_tipo_obra = preguntar_tipo_obra()
 
-        opt1 = "Corporación Buenos Aires Sur"
-        opt2 = "Ministerio de Justicia y Seguridad"
-        opt3 = "Secretarí­a de Transporte y Obras Públicas"
-        opt4 = "Ministerio de Desarrollo Humano y Hábitat"
-        opt5 = "Ministerio de Educación"
-        opt6 = "Subsecretarí­a de Gestión Comunal"
-        opt7 = "Ministerio de Salud"
-        opt8 = "Ministerio de Espacio Público e Higiene Urbana"
-        opt9 = "Instituto de la Vivienda"
-        opt10 = "Ministerio de Cultura"
-
-        opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10]
-
-        #mostramos opciones de area
-
-        i = 1
-
-        for o in opciones:
-            print(i, " " , o)
-            i = i + 1
-
-        print()
-        opcion_elegida = int(input("Elija el número de opción: "))
-
-        #print(opciones[opcion_elegida - 1])
-
-        #creamos objeto del tipo area
-
-        try:
-            obj_area=GestionarModelo.nueva_area(opciones[opcion_elegida - 1])
-            print("Área creada con éxito")
-        except:
-            print("Falló la creación de área")
-
-        print(obj_area.descripcion)
-        
-        
-
-        
+        #print(respuesta_tipo_obra)
         
       
