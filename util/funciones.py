@@ -117,21 +117,21 @@ def preguntar_comuna():
     print("Seleccione la comuna (número entre 1 y 15): ")
     print()
 
-    opt1 = 1
-    opt2 = 2
-    opt3 = 3
-    opt4 = 4
-    opt5 = 5
-    opt6 = 6
-    opt7 = 7
-    opt8 = 8
-    opt9 = 9
-    opt10 = 10
-    opt11 = 11
-    opt12 = 12
-    opt13 = 13
-    opt14 = 14
-    opt15 = 15
+    opt1 = "1"
+    opt2 = "2"
+    opt3 = "3"
+    opt4 = "4"
+    opt5 = "5"
+    opt6 = "6"
+    opt7 = "7"
+    opt8 = "8"
+    opt9 = "9"
+    opt10 = "10"
+    opt11 = "11"
+    opt12 = "12"
+    opt13 = "13"
+    opt14 = "14"
+    opt15 = "15"
     opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7,
                 opt8, opt9, opt10, opt11, opt12, opt13, opt14, opt15]
 
@@ -224,3 +224,92 @@ def preguntar_barrio():
     "Villa Ortuzar"    
     """)
     print()
+
+def preguntar_tipo_contratacion():
+    print("Escriba el tipo contratacion: ")
+    print()
+    print("""
+    "Licitación Pública"
+    "Contratación Directa"
+    "Contratacion Menor"
+    "Contratación Menor"
+    "Licitación Privada"
+    "Licitacion Privada"
+    "Licitacion Pí¹blica"
+    "Licitacion Pública"
+    "Decreto 433"
+    "Ad Mantenimiento"
+    "Anexo contratación mantenimiento"
+    "Adicional de Mantenimiento"
+    "Licitación"
+    "Ad mantenimiento"
+    "Licitación Pública Nacional"
+    "Licitacion Publica"
+    "Obra Publica"
+    "LicitaciÃ³n PÃºblica"
+    "Contratacion Directa"
+    "433/16 (Decr Necesidad y Urgencia)"
+    "Licitacion publica"
+    "433"
+    "CONTRATACIí“N DIRECTA"
+    "Decreto 433/16"
+    "Licitación Publica"
+    "Licitación Pública de Obra Mayor NÂ° 682/SIGAF/2020,"
+    "Licitación Pública Internacional"
+    "Licitación Privada de Obra Menor"
+    "LICITACIÓN PUBLICA"
+    "Contratación menor"
+    """)
+    print()
+
+def preguntar_fuente_financiamiento():
+    print()
+    print("Seleccione la fuente de financiamiento de la obra: ")
+    print()
+
+    opt1 = "Nación-GCBA"
+    opt2 = "PPI"
+    opt3 = "F11"
+    opt4 = "Nación"
+    opt5 = "Préstamo BIRF 8706-AR"
+    opt6 = "Préstamo BID AR-L1260"
+    opt7 = "CAF-Nación-GCBA"
+
+
+    opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7]
+
+    # mostramos opciones de area
+
+    i = 1
+
+    for o in opciones:
+        print(i, " ", o)
+        i = i + 1
+
+    print()
+
+    # creamos objeto del tipo area
+
+    while True:
+        try:
+            opcion_elegida = int(input("Elija el número de opción: "))
+            break
+        except ValueError as e:
+            print('Ingrese un número del 1 al 7. Error: ', e)
+
+    while True:
+        if opcion_elegida > 0 and opcion_elegida < 8:
+            try:
+                obj_ff = GestionarModelo.nueva_fuente_financiamiento(opciones[opcion_elegida - 1])
+                print("FF creada con éxito")
+
+            except:
+                print("Falló la creación de FF")
+
+            break
+        else:
+            print("Ingrese un número entre 1 y 7")
+            opcion_elegida = int(input("Elija el número de opción: "))
+
+    # retornamos el objeto
+    return obj_ff

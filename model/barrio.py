@@ -22,4 +22,4 @@ class Barrio():
         self.__comuna = valor
 
     def __str__(self):
-        return "barrio: " + self.__nombre + " de la comuna: " + str(self.__comuna)
+        return  self.nombre  + str(self.comuna)

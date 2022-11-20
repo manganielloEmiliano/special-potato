@@ -32,9 +32,19 @@ class Main(ABC):
         
         #punto 4.b del enunciado, asignando valores
 
-        respuesta_area = preguntar_area()
-        respuesta_tipo_obra = preguntar_tipo_obra()
+        #respuesta_area = preguntar_area()
+        #respuesta_tipo_obra = preguntar_tipo_obra()
         respuesta_comuna = preguntar_comuna()
         preguntar_barrio()
-        respuesta_barrio = GestionarModelo.nuevo_barrio(input("Escriba el barrio: "), respuesta_comuna.numero)
-        print(respuesta_barrio)
+        respuesta_barrio = GestionarModelo.nuevo_barrio(input("escriba el nombre del barrio: "),respuesta_comuna)
+        preguntar_tipo_contratacion()
+        respuesta_tipo_contratacion=GestionarModelo.nuevo_tipo_contratacion(input("esciba el tipo de contratacion: "))
+        #print(respuesta_tipo_contratacion)
+        #respuesta_empresa=GestionarModelo.nueva_empresa(input("ingese el cuit de la empresa: "),input("ingrese razon social de la empresa: "))
+        #respuesta_fuente_financiamiento=preguntar_fuente_financiamiento()
+        #respuesta_imagen=GestionarModelo.nueva_imagen(input("ingrese la descripcion de la imagen: "))
+        #print(respuesta_imagen)
+        obra1=GestionarModelo.nueva_obra(input("ingrese entorno: "),input("ingrese nombre: "),obj_etapa,preguntar_tipo_obra(),preguntar_area(),input("ingrese la descripcion: "),float(input("ingrese el monto del contrato: ")),respuesta_barrio,input("ingrese la direccion: "),input("ingrese la fecha de inicio: "),input("ingrese la fecha de fin: "),int(input("ingrese el plazo de meses: ")),float(input("ingrese el porcentaje de avance: ")),GestionarModelo.nueva_imagen(input("ingrese la descripcion de la imagen: ")),GestionarModelo.nueva_empresa(input("ingese el cuit de la empresa: "),input("ingrese razon social de la empresa: ")),int(input("ingrese el anio de licitacion: ")),respuesta_tipo_contratacion,input("ingrese el numero de contratacion: "),input("ingrese los beneficiarios: "),int(input("ingrese la mano de obra: ")),True,input("\ningrese el numero de expediente: "),preguntar_fuente_financiamiento())
+        print(obra1)
+        print(GestionarModelo.__listado_obras)
+

@@ -1,13 +1,13 @@
 class Imagen():
-    def __init__(self, Imagen):
-        self.Imagen = Imagen
+    def __init__(self, nombre):
+        self.nombre = nombre
 
     @property
-    def Imagen(self):
-        return self.__Imagen
+    def nombre(self):
+        return self.__nombre
 
-    @Imagen.setter
-    def Imagen(self, valor):
-        self.__Imagen = valor
+    @nombre.setter
+    def nombre(self, valor):
+        self.__nombre = valor
     def __str__(self):
-        return self.descripcion
+        return self.nombre

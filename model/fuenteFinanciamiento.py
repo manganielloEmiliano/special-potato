@@ -10,4 +10,4 @@ class FuenteFinanciamiento():
     def cuit(self, valor):
         self.__nombre = valor
     def __str__(self):
-        return " la comuna: " + self.nombre
+        return " fuente financiamiento: " + self.nombre
