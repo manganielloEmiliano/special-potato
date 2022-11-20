@@ -93,3 +93,7 @@ class GestionarModelo(ABC):
         while i < len(cls.__listado_obras):
             print(cls.__listado_obras[i])
             i = i + 1
+
+    @classmethod
+    def obtener_listado_obras(cls):
+        return cls.__listado_obras
