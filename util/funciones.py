@@ -114,36 +114,28 @@ def preguntar_area():
 
 def preguntar_comuna():
     print()
-    print("Seleccione la comuna: ")
+    print("Seleccione la comuna (número entre 1 y 15): ")
     print()
 
-    opt1 = "1"
-    opt2 = "2"
-    opt3 = "3"
-    opt4 = "4"
-    opt5 = "5"
-    opt6 = "6"
-    opt7 = "7"
-    opt8 = "8"
-    opt9 = "9"
-    opt10 = "10"
-    opt11 = "11"
-    opt12 = "12"
-    opt13 = "13"
-    opt14 = "14"
-    opr15 = "15"
+    opt1 = 1
+    opt2 = 2
+    opt3 = 3
+    opt4 = 4
+    opt5 = 5
+    opt6 = 6
+    opt7 = 7
+    opt8 = 8
+    opt9 = 9
+    opt10 = 10
+    opt11 = 11
+    opt12 = 12
+    opt13 = 13
+    opt14 = 14
+    opt15 = 15
     opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7,
-                opt8, opt9, opt10, opt11, opt12, opt13, opt14, opr15]
+                opt8, opt9, opt10, opt11, opt12, opt13, opt14, opt15]
 
     # mostramos opciones de tipo de obra
-
-    i = 1
-
-    for o in opciones:
-        print(i, " ", o)
-        i = i + 1
-
-    print()
 
     while True:
         try:
@@ -157,7 +149,7 @@ def preguntar_comuna():
             try:
                 obj_comuna = GestionarModelo.nueva_comuna(
                     opciones[opcion_elegida - 1])
-                print("la comuna creada con éxito")
+                print(f"la comuna {obj_comuna} fue creada con éxito")
 
             except:
                 print("Falló la creación de el objeto comuna")
@@ -170,3 +162,65 @@ def preguntar_comuna():
     # retornamos el objeto
 
     return obj_comuna
+
+def preguntar_barrio():
+    print("Escriba el nombre del barrio: ")
+    print()
+    print("""
+    "Monserrat"
+    "San Nicolás"
+    "Puerto Madero"
+    "San Telmo"
+    "Retiro"
+    "Montserrat"
+    "Constitución"
+    "Constitucion"
+    "San telmo"
+    "Recoleta"
+    "Balvanera"
+    "San Cristóbal"
+    "Parque Patricios"
+    "Nueva Pompeya"
+    "Barracas"
+    "La Boca"
+    "Boca"
+    "Boedo"
+    "Almagro"
+    "Caballito"
+    "Flores"
+    "Parque Chacabuco"
+    "Villa Soldati"
+    "Villa Lugano"
+    "Villa Riachuelo"
+    "Villa 6 - Barrio Cildañez"
+    "Parque Avellaneda"
+    "Liniers"
+    "Mataderos"
+    "Villa Luro"
+    "Floresta"
+    "Versalles"
+    "Monte Castro"
+    "Villa Real"
+    "Vélez Sarsfield"
+    "Villa Gral. Mitre"
+    "Villa Del Parque"
+    "Villa Devoto"
+    "Villa del Parque"
+    "Villa Santa Rita"
+    "Villa Urquiza"
+    "Coghlan"
+    "Saavedra"
+    "Villa Pueyrredon"
+    "NuÃ±ez"
+    "Nuñez"
+    "Belgrano"
+    "Colegiales"
+    "Palermo"
+    "Chacarita"
+    "Paternal"
+    "Villa Crespo"
+    "Parque Chas"
+    "Agronomí­a"
+    "Villa Ortuzar"    
+    """)
+    print()

@@ -32,11 +32,9 @@ class Main(ABC):
         
         #punto 4.b del enunciado, asignando valores
 
-        #respuesta_area = preguntar_area()
-
-        #respuesta_tipo_obra = preguntar_tipo_obra()
-
-        #print(respuesta_tipo_obra)
-        comuna=preguntar_comuna()
-        print(comuna)
-        
+        respuesta_area = preguntar_area()
+        respuesta_tipo_obra = preguntar_tipo_obra()
+        respuesta_comuna = preguntar_comuna()
+        preguntar_barrio()
+        respuesta_barrio = GestionarModelo.nuevo_barrio(input("Escriba el barrio: "), respuesta_comuna.numero)
+        print(respuesta_barrio)
