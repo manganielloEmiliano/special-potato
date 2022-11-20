@@ -8,7 +8,6 @@ from model.fuenteFinanciamiento import FuenteFinanciamiento
 from model.etapa import Etapa
 from model.imagen import Imagen
 
-
 class Obra():
 
     def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str, fecha_inicio, fecha_fin_inicial, plazo_meses: int, porcentaje_avance: float, imagenes: Imagen, empresa: Empresa, licitacion_anio: int, tipo_contratacion: TipoContratacion, nro_contratacion: str, beneficiarios: str, mano_obra: int, destacada: bool, expediente_numero: str, fuente_financiamiento: FuenteFinanciamiento):
@@ -231,42 +230,13 @@ class Obra():
         self.__fuente_financiamiento = value
 
     def __str__(self) -> str:
-        return "el entorno es: "+self.entorno + "\n el nombre de la obra es: "+self.nombre + "\n esta en la etapa de: "+str(self.etapa)+"\n el tipo de obra es: "+str(self.tipo_obra)+"\n el area responsable es:"+str(self.area_responsable) + "\n la descripcion es: "+self.descripcion + "\n el monto del contrato es: "+str(self.monto_contrato)+"\nubicada  en el barrio de: "+str(self.barrio)+"\n la direccion es:"+self.direccion+"\n fecha de inicio"+str(self.fecha_inicio)+"\n la fecha prevista para la finalizacion es: "+str(self.fecha_fin_inicial)+"\n el plazo de meses estimado es de: "+str(self.plazo_meses)+"meses"+"\nel porcentaje de avance es de:"+str(self.porcentaje_avance)+"%"+"\nla empresa acargo es:"+str(self.empresa)+"\nla licitacion es del anio"+str(self.licitacion_anio)+"\nel tipo de contratacion es: "+str(self.tipo_contratacion)+"\nel numero de contratacion es: "+self.nro_contratacion+"\nlos beneficiarios son: "+self.beneficiarios+"\nla mano de obra esta compuesta por: "+str(self.mano_obra)+"empleados"+"\nel expediente es el numero: "+self.expediente_numero+"\nla fuente de financiamiendo es: "+str(self.fuente_financiamiento) + "\nla obra es destacada: "+str(self.destacada)
+
+        if (self.destacada):
+            res = 'está destacada'
+        else:
+            res = 'no está destada'
+
+        return "el entorno es: " + self.entorno + "\n el nombre de la obra es: " + self.nombre + "\n esta en la etapa de: " + str(self.etapa) + "\n el tipo de obra es: " + str(self.tipo_obra) + "\n el area responsable es:" + str(self.area_responsable) + "\n la descripcion es: "+self.descripcion + "\n el monto del contrato es: " + str(self.monto_contrato) + "\nubicada  en el barrio de: " + str(self.barrio) + "\n la direccion es: " + self.direccion + "\n fecha de inicio" + str(self.fecha_inicio) + "\n la fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\n el plazo de meses estimado es de: " + str(self.plazo_meses) + "meses" + "\nel porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nla empresa acargo es: " + str(self.empresa) + "\nla licitacion es del año: " + str(self.licitacion_anio) + "\nel tipo de contratacion es: " + str(self.tipo_contratacion) + "\nel numero de contratacion es: " + self.nro_contratacion + "\nlos beneficiarios son: " + self.beneficiarios + "\nla mano de obra esta compuesta por: " + str(self.mano_obra) + " empleados" + "\nel expediente es el numero: " + self.expediente_numero + " \n " + str(self.fuente_financiamiento) + "\n La obra " + res
 
     def iniciar_contratacion(self, tipo: TipoContratacion, nro_contratacion):
         pass
-
-
-
-    def __init__(self,nombre:str,barrio:Barrio,empresa:Empresa) -> Obra:
-        self.nombre=nombre
-        self.barrio=barrio
-        self.empresa=empresa
-
-    @property
-    def nombre(self):
-        return self.__nombre
-    @nombre.setter
-    def nombre(self, value):
-        self.__nombre = value
-
- 
-
- 
-    @property
-    def barrio(self):
-        return self.__barrio
-    @barrio.setter
-    def barrio(self, value):
-        self.__barrio = value
-
-    @property
-    def empresa(self):
-        return self.__empresa
-    @empresa.setter
-    def empresa(self, value):
-        self.__empresa = value
-    
-    def __str__(self) -> str:
-        return "el nombre de la obra es: "+str(self.nombre)+"\n ubicada en el barrio: "+str(self.barrio)+"\nla empresa es: "+str(self.e)
-          """

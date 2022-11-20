@@ -77,14 +77,19 @@ class GestionarModelo(ABC):
         cls.__listado_imagenes.append(obj)
         return obj
 
+    # def __str__(cls):
+    #     return 'El listado de obras es: ' + cls.__listado_obras
+    
     @classmethod
     def nueva_obra(cls, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str, fecha_inicio, fecha_fin_inicial, plazo_meses: int, porcentaje_avance: float, imagenes: Imagen, empresa: Empresa, licitacion_anio: int, tipo_contratacion: TipoContratacion, nro_contratacion: str, beneficiarios: str, mano_obra: int, destacada: bool, expediente_numero: str, fuente_financiamiento: FuenteFinanciamiento) -> Obra:
         obj = Obra( entorno, nombre, etapa, tipo_obra, area_responsable, descripcion, monto_contrato, barrio, direccion, fecha_inicio, fecha_fin_inicial, plazo_meses, porcentaje_avance, imagenes, empresa, licitacion_anio, tipo_contratacion, nro_contratacion, beneficiarios, mano_obra, destacada, expediente_numero, fuente_financiamiento)
         cls.__listado_obras.append(obj)
+        #print(cls.__listado_obras[0])
         return obj
-        
 
-    """@classmethod
-    def nueva_obra(cls,nombre,barrio,empresa)->Obra:
-        obj=Obra("""
-
+    @classmethod
+    def mostrar_listado_obras(cls):
+        i = 0
+        while i < len(cls.__listado_obras):
+            print(cls.__listado_obras[i])
+            i = i + 1
