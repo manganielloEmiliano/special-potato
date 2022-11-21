@@ -10,7 +10,7 @@ from model.imagen import Imagen
 
 class Obra():
 
-    def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str, fecha_inicio, fecha_fin_inicial, plazo_meses: int, porcentaje_avance: float, imagenes: Imagen, empresa: Empresa, licitacion_anio: int, tipo_contratacion: TipoContratacion, nro_contratacion: str, beneficiarios: str, mano_obra: int, destacada: bool, expediente_numero: str, fuente_financiamiento: FuenteFinanciamiento):
+    def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str,  plazo_meses: int, beneficiarios: str, tipo_contratacion=0, nro_contratacion=0, mano_obra=0, destacada=0, expediente_numero=0, fuente_financiamiento=0,fecha_inicio=0, fecha_fin_inicial=0, porcentaje_avance=0, imagenes=0, empresa=0, licitacion_anio=0):
         self.entorno = entorno
         self.nombre = nombre
         self.etapa = etapa
@@ -231,12 +231,12 @@ class Obra():
 
     def __str__(self) -> str:
 
-        if (self.destacada):
-            res = 'está destacada'
-        else:
-            res = 'no está destada'
-
-        return "el entorno es: " + self.entorno + "\n el nombre de la obra es: " + self.nombre + "\n esta en la etapa de: " + str(self.etapa) + "\n el tipo de obra es: " + str(self.tipo_obra) + "\n el area responsable es:" + str(self.area_responsable) + "\n la descripcion es: "+self.descripcion + "\n el monto del contrato es: " + str(self.monto_contrato) + "\nubicada  en el barrio de: " + str(self.barrio) + "\n la direccion es: " + self.direccion + "\n fecha de inicio" + str(self.fecha_inicio) + "\n la fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\n el plazo de meses estimado es de: " + str(self.plazo_meses) + "meses" + "\nel porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nla empresa acargo es: " + str(self.empresa) + "\nla licitacion es del año: " + str(self.licitacion_anio) + "\nel tipo de contratacion es: " + str(self.tipo_contratacion) + "\nel numero de contratacion es: " + self.nro_contratacion + "\nlos beneficiarios son: " + self.beneficiarios + "\nla mano de obra esta compuesta por: " + str(self.mano_obra) + " empleados" + "\nel expediente es el numero: " + self.expediente_numero + " \n " + str(self.fuente_financiamiento) + "\n La obra " + res
+        """ if (self.destacada):
+                res = 'está destacada'
+            else:
+                res = 'no está destada'
+"""
+        return "el entorno es: " + str(self.entorno) + "\n el nombre de la obra es: " + str(self.nombre )+ "\n esta en la etapa de: " + str(self.etapa) + "\n el tipo de obra es: " + str(self.tipo_obra) + "\n el area responsable es:" + str(self.area_responsable) + "\n la descripcion es: "+str(self.descripcion) + "\n el monto del contrato es: " + str(self.monto_contrato) + "\nubicada  en el barrio de: " + str(self.barrio) + "\n la direccion es: " + str(self.direccion )+ "\n fecha de inicio" + str(self.fecha_inicio) + "\n la fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\n el plazo de meses estimado es de: " + str(self.plazo_meses) + "meses" + "\nel porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nla empresa acargo es: " + str(self.empresa) + "\nla licitacion es del año: " + str(self.licitacion_anio) + "\nel tipo de contratacion es: " + str(self.tipo_contratacion) + "\nel numero de contratacion es: " + str(self.nro_contratacion) + "\nlos beneficiarios son: " + str(self.beneficiarios) + "\nla mano de obra esta compuesta por: " + str(self.mano_obra) + " empleados" + "\nel expediente es el numero: " + str(self.expediente_numero) + " \n " + str(self.fuente_financiamiento) + "\n La obra "+str(self.destacada) 
 
     def iniciar_contratacion(self, tipo: TipoContratacion, nro_contratacion):
         pass

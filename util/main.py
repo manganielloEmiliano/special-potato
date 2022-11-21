@@ -32,7 +32,7 @@ class Main(ABC):
 
         # Creación de 3 obras (punto 2)
         i = 0
-        while i < 4:
+        while i < 1:
 
             #punto 4.b del enunciado, asignando valores
             respuesta_comuna = preguntar_comuna()
@@ -43,10 +43,11 @@ class Main(ABC):
             
             #creamos Obra
             try:
-                obj_obra = GestionarModelo.nueva_obra(input("ingrese entorno: "),input("ingrese nombre: "),obj_etapa,preguntar_tipo_obra(),preguntar_area(),input("ingrese la descripcion: "),float(input("ingrese el monto del contrato: ")),respuesta_barrio,input("ingrese la direccion: "),input("ingrese la fecha de inicio: "),input("ingrese la fecha de fin: "),int(input("ingrese el plazo de meses: ")),float(input("ingrese el porcentaje de avance: ")),GestionarModelo.nueva_imagen(input("ingrese la descripcion de la imagen: ")),GestionarModelo.nueva_empresa(input("ingese el cuit de la empresa: "),input("ingrese razon social de la empresa: ")),int(input("ingrese el anio de licitacion: ")),respuesta_tipo_contratacion,input("ingrese el numero de contratacion: "),input("ingrese los beneficiarios: "),int(input("ingrese la mano de obra: ")),True,input("\ningrese el numero de expediente: "),preguntar_fuente_financiamiento()) 
-                print(obj_obra)
+                obj_obra = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")),str(input("ingrese el nombre de la obra: ")),obj_etapa,preguntar_tipo_obra(),preguntar_area(),str(input("ingrese una descripcion: ")),float(input("ingrese el monto del contrato: ")),respuesta_barrio,str(input("ingrese la direcccion: ")),int(input("ingrese el plazo en meses: ")),str(input("ingrese a los beneficiarios: ")))                                   
+                
                 i = i + 1
-                print("Obra guardada con éxito en la BD")
+                GestionarModelo.mostrar_listado_obras()
+                print("Obra creada con éxito ")
             except:
                 print("Falló la creación de obra")
 
