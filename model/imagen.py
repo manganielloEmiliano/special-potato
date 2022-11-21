@@ -9,5 +9,7 @@ class Imagen():
     @nombre.setter
     def nombre(self, valor):
         self.__nombre = valor
+    
     def __str__(self):
         return self.nombre
+    

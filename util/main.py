@@ -69,7 +69,13 @@ class Main(ABC):
             obj_obra1.adjudicar_obra(GestionarModelo.nueva_empresa(input("ingrese cuit de la empresa: "),input("ingrese la razon social: ")), input(
                 "ingrese el numero de expediente: "))
             #vamos a iniciar obra
-            obj_obra1.iniciar_obra(bool(input("¿esta obra es destacada?(1/0): ")),input("ingrese la fecha de inicio: "),input("ingrese la fecha de finalizacion: "),preguntar_fuente_financiamiento(),int(input("ingrese la cantidad de mano de obra: ")))
+            obj_obra1.iniciar_obra(bool(input("¿esta obra es destacada?(1 para si,0 para no): ")),input("ingrese la fecha de inicio: "),input("ingrese la fecha de finalizacion: "),preguntar_fuente_financiamiento(),int(input("ingrese la cantidad de mano de obra: ")))
+            #actualizamos el porcentaje de avance
+            obj_obra1.actualizar_porcentaje_avance(int(input("ingrese el porcentaje de avance: ")))
+            #incrementamos el plazo de meses
+            obj_obra1.incrementar_plazo(int(input("ingrese en cuantos meses incrementara el plazo: ")))
+            #agregamos imagenes
+            obj_obra1.agregar_imagenes()
              
             print(obj_obra1)
 

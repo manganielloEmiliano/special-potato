@@ -11,7 +11,7 @@ from model.imagen import Imagen
 
 class Obra():
 
-    def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str,  plazo_meses: int, beneficiarios: str, tipo_contratacion="0", nro_contratacion="0", mano_obra="0", destacada=False, expediente_numero="0", fuente_financiamiento="0", fecha_inicio="0", fecha_fin_inicial="0", porcentaje_avance="0", imagenes="0", empresa="0", licitacion_anio="0"):
+    def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str,  plazo_meses: int, beneficiarios: str, tipo_contratacion="0", nro_contratacion="0", mano_obra="0", destacada=False, expediente_numero="0", fuente_financiamiento="0", fecha_inicio="0", fecha_fin_inicial="0", porcentaje_avance = 0, imagenes = 0, empresa="0", licitacion_anio="0"):
         self.entorno = entorno
         self.nombre = nombre
         self.etapa = etapa
@@ -236,7 +236,7 @@ class Obra():
         else:
             res = 'no está destacada'
 
-        return "el entorno es: " + str(self.entorno) + "\n el nombre de la obra es: " + str(self.nombre) + "\n esta en la etapa de: " + str(self.etapa) + "\n el tipo de obra es: " + str(self.tipo_obra) + "\n el area responsable es:" + str(self.area_responsable) + "\n la descripcion es: "+str(self.descripcion) + "\n el monto del contrato es: " + str(self.monto_contrato) + "\nubicada  en el barrio de: " + str(self.barrio) + "\n la direccion es: " + str(self.direccion) + "\n fecha de inicio" + str(self.fecha_inicio) + "\n la fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\n el plazo de meses estimado es de: " + str(self.plazo_meses) + "meses" + "\nel porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nla empresa acargo es: " + str(self.empresa) + "\nla licitacion es del año: " + str(self.licitacion_anio) + "\nel tipo de contratacion es: " + str(self.tipo_contratacion) + "\nel numero de contratacion es: " + str(self.nro_contratacion) + "\nlos beneficiarios son: " + str(self.beneficiarios) + "\nla mano de obra esta compuesta por: " + str(self.mano_obra) + " empleados" + "\nel expediente es el numero: " + str(self.expediente_numero) + " \n " +"la fuente de financiamiento es: "+ str(self.fuente_financiamiento) + "\n La obra "+res
+        return "el entorno es: " + str(self.entorno) + "\n el nombre de la obra es: " + str(self.nombre) + "\n esta en la etapa de: " + str(self.etapa) + "\n el tipo de obra es: " + str(self.tipo_obra) + "\n el area responsable es:" + str(self.area_responsable) + "\n la descripcion es: "+str(self.descripcion) + "\n el monto del contrato es: " + str(self.monto_contrato) + "\nubicada  en el barrio de: " + str(self.barrio) + "\n la direccion es: " + str(self.direccion) + "\n fecha de inicio" + str(self.fecha_inicio) + "\n la fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\n el plazo de meses estimado es de: " + str(self.plazo_meses) + " meses" + "\nel porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nla empresa acargo es: " + str(self.empresa) + "\nla licitacion es del año: " + str(self.licitacion_anio) + "\nel tipo de contratacion es: " + str(self.tipo_contratacion) + "\nel numero de contratacion es: " + str(self.nro_contratacion) + "\nlos beneficiarios son: " + str(self.beneficiarios) + "\nla mano de obra esta compuesta por: " + str(self.mano_obra) + " empleados" + "\nel expediente es el numero: " + str(self.expediente_numero) + " \n " +"la fuente de financiamiento es: "+ str(self.fuente_financiamiento) + "\n La obra "+res+"\n las imagenes son: "+str(self.imagenes)
 
     def iniciar_contratacion(self, tipo: TipoContratacion, nro_contratacion):
 
@@ -255,4 +255,15 @@ class Obra():
         self.fuente_financiamiento = fuente_financiamiento
         self.mano_obra = mano_obra
 
+    def actualizar_porcentaje_avance(self,porc_incremento:int):
+        self.porcentaje_avance =self.porcentaje_avance + porc_incremento
+    
+    def incrementar_plazo(self,meses:int):
+        self.plazo_meses =self.plazo_meses + meses
+    
+    def agregar_imagenes(self):
+        self.imagenes = []
+        imagen=Imagen(input("ingrese el nombre de la imagen: "))
+        self.imagenes.append(imagen)
 
+    
