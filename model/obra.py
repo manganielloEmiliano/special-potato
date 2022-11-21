@@ -8,9 +8,10 @@ from model.fuenteFinanciamiento import FuenteFinanciamiento
 from model.etapa import Etapa
 from model.imagen import Imagen
 
+
 class Obra():
 
-    def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str,  plazo_meses: int, beneficiarios: str, tipo_contratacion=0, nro_contratacion=0, mano_obra=0, destacada=0, expediente_numero=0, fuente_financiamiento=0,fecha_inicio=0, fecha_fin_inicial=0, porcentaje_avance=0, imagenes=0, empresa=0, licitacion_anio=0):
+    def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str,  plazo_meses: int, beneficiarios: str, tipo_contratacion="0", nro_contratacion="0", mano_obra="0", destacada=False, expediente_numero="0", fuente_financiamiento="0", fecha_inicio="0", fecha_fin_inicial="0", porcentaje_avance="0", imagenes="0", empresa="0", licitacion_anio="0"):
         self.entorno = entorno
         self.nombre = nombre
         self.etapa = etapa
@@ -55,7 +56,7 @@ class Obra():
 
     @property
     def etapa(self):
-        return self.__nombre
+        return self.__etapa
 
     @etapa.setter
     def etapa(self, value):
@@ -63,7 +64,7 @@ class Obra():
 
     @property
     def tipo_obra(self):
-        return self.__nombre
+        return self.__tipo_obra
 
     @tipo_obra.setter
     def tipo_obra(self, value):
@@ -135,7 +136,7 @@ class Obra():
 
     @property
     def porcentaje_avance(self):
-        return self.__plazo_meses
+        return self.__porcentaje_avance
 
     @porcentaje_avance.setter
     def porcentaje_avance(self, value):
@@ -230,13 +231,28 @@ class Obra():
         self.__fuente_financiamiento = value
 
     def __str__(self) -> str:
+        if (self.destacada):
+            res = 'está destacada'
+        else:
+            res = 'no está destacada'
 
-        """ if (self.destacada):
-                res = 'está destacada'
-            else:
-                res = 'no está destada'
-"""
-        return "el entorno es: " + str(self.entorno) + "\n el nombre de la obra es: " + str(self.nombre )+ "\n esta en la etapa de: " + str(self.etapa) + "\n el tipo de obra es: " + str(self.tipo_obra) + "\n el area responsable es:" + str(self.area_responsable) + "\n la descripcion es: "+str(self.descripcion) + "\n el monto del contrato es: " + str(self.monto_contrato) + "\nubicada  en el barrio de: " + str(self.barrio) + "\n la direccion es: " + str(self.direccion )+ "\n fecha de inicio" + str(self.fecha_inicio) + "\n la fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\n el plazo de meses estimado es de: " + str(self.plazo_meses) + "meses" + "\nel porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nla empresa acargo es: " + str(self.empresa) + "\nla licitacion es del año: " + str(self.licitacion_anio) + "\nel tipo de contratacion es: " + str(self.tipo_contratacion) + "\nel numero de contratacion es: " + str(self.nro_contratacion) + "\nlos beneficiarios son: " + str(self.beneficiarios) + "\nla mano de obra esta compuesta por: " + str(self.mano_obra) + " empleados" + "\nel expediente es el numero: " + str(self.expediente_numero) + " \n " + str(self.fuente_financiamiento) + "\n La obra "+str(self.destacada) 
+        return "el entorno es: " + str(self.entorno) + "\n el nombre de la obra es: " + str(self.nombre) + "\n esta en la etapa de: " + str(self.etapa) + "\n el tipo de obra es: " + str(self.tipo_obra) + "\n el area responsable es:" + str(self.area_responsable) + "\n la descripcion es: "+str(self.descripcion) + "\n el monto del contrato es: " + str(self.monto_contrato) + "\nubicada  en el barrio de: " + str(self.barrio) + "\n la direccion es: " + str(self.direccion) + "\n fecha de inicio" + str(self.fecha_inicio) + "\n la fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\n el plazo de meses estimado es de: " + str(self.plazo_meses) + "meses" + "\nel porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nla empresa acargo es: " + str(self.empresa) + "\nla licitacion es del año: " + str(self.licitacion_anio) + "\nel tipo de contratacion es: " + str(self.tipo_contratacion) + "\nel numero de contratacion es: " + str(self.nro_contratacion) + "\nlos beneficiarios son: " + str(self.beneficiarios) + "\nla mano de obra esta compuesta por: " + str(self.mano_obra) + " empleados" + "\nel expediente es el numero: " + str(self.expediente_numero) + " \n " +"la fuente de financiamiento es: "+ str(self.fuente_financiamiento) + "\n La obra "+res
 
     def iniciar_contratacion(self, tipo: TipoContratacion, nro_contratacion):
-        pass
+
+        self.tipo_contratacion = tipo
+        self.nro_contratacion = nro_contratacion
+    
+    def adjudicar_obra(self, empresa:Empresa, expediente_numero:str):
+
+        self.empresa = empresa
+        self.expediente_numero = expediente_numero
+    
+    def iniciar_obra(self,destacada:bool,fecha_inicio:str,fecha_fin_inicial,fuente_financiamiento:FuenteFinanciamiento,mano_obra:int):
+        self.destacada = destacada
+        self.fecha_inicio = fecha_inicio
+        self.fecha_fin_inicial = fecha_fin_inicial
+        self.fuente_financiamiento = fuente_financiamiento
+        self.mano_obra = mano_obra
+
+
