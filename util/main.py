@@ -25,6 +25,8 @@ class Main(ABC):
 
         try:
             obj_etapa = GestionarModelo.nueva_etapa("Proyecto")
+            obj_etapa_fin = GestionarModelo.nueva_etapa("Finalizada")
+            obj_etapa_resc = GestionarModelo.nueva_etapa("Rescindida")
             obj_dao_etapa = GestionarDAO.crear_objeto_dao("Etapa_DAO")
             GestionarDAO.insertar_registro(obj_dao_etapa, obj_etapa)
             print("Etapa guardada con éxito en la BD")
@@ -76,7 +78,13 @@ class Main(ABC):
             obj_obra1.incrementar_plazo(int(input("ingrese en cuantos meses incrementara el plazo: ")))
             #agregamos imagenes
             obj_obra1.agregar_imagenes()
-             
+            # incrementamo mano de obra en cantidad de empleados
+            obj_obra1.incrementar_mano_obra(int(input("Ingrese la cantidad de nuevos empleados que se agregará: "))) 
+            # finalizamos una obra (etapa finalizada)
+            obj_obra1.finalizar_obra(obj_etapa_fin)
+            # rescindimos una obra (etapa rescindida)
+            obj_obra1.rescindir_obra(obj_etapa_resc)            
+
             print(obj_obra1)
 
 

@@ -236,7 +236,7 @@ class Obra():
         else:
             res = 'no está destacada'
 
-        return "el entorno es: " + str(self.entorno) + "\n el nombre de la obra es: " + str(self.nombre) + "\n esta en la etapa de: " + str(self.etapa) + "\n el tipo de obra es: " + str(self.tipo_obra) + "\n el area responsable es:" + str(self.area_responsable) + "\n la descripcion es: "+str(self.descripcion) + "\n el monto del contrato es: " + str(self.monto_contrato) + "\nubicada  en el barrio de: " + str(self.barrio) + "\n la direccion es: " + str(self.direccion) + "\n fecha de inicio" + str(self.fecha_inicio) + "\n la fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\n el plazo de meses estimado es de: " + str(self.plazo_meses) + " meses" + "\nel porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nla empresa acargo es: " + str(self.empresa) + "\nla licitacion es del año: " + str(self.licitacion_anio) + "\nel tipo de contratacion es: " + str(self.tipo_contratacion) + "\nel numero de contratacion es: " + str(self.nro_contratacion) + "\nlos beneficiarios son: " + str(self.beneficiarios) + "\nla mano de obra esta compuesta por: " + str(self.mano_obra) + " empleados" + "\nel expediente es el numero: " + str(self.expediente_numero) + " \n " +"la fuente de financiamiento es: "+ str(self.fuente_financiamiento) + "\n La obra "+res+"\n las imagenes son: "+str(self.imagenes)
+        return "el entorno es: " + str(self.entorno) + "\n el nombre de la obra es: " + str(self.nombre) + "\n esta en la etapa de: " + str(self.etapa) + "\n el tipo de obra es: " + str(self.tipo_obra) + "\n el area responsable es:" + str(self.area_responsable) + "\n la descripcion es: "+str(self.descripcion) + "\n el monto del contrato es: " + str(self.monto_contrato) + "\nubicada  en el barrio de: " + str(self.barrio) + "\n la direccion es: " + str(self.direccion) + "\n fecha de inicio" + str(self.fecha_inicio) + "\n la fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\n el plazo de meses estimado es de: " + str(self.plazo_meses) + " meses" + "\nel porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nla empresa acargo es: " + str(self.empresa) + "\nla licitacion es del año: " + str(self.licitacion_anio) + "\nel tipo de contratacion es: " + str(self.tipo_contratacion) + "\nel numero de contratacion es: " + str(self.nro_contratacion) + "\nlos beneficiarios son: " + str(self.beneficiarios) + "\nla mano de obra esta compuesta por: " + str(self.mano_obra) + " empleados" + "\nel expediente es el numero: " + str(self.expediente_numero) + " \n " + str(self.fuente_financiamiento) + "\n La obra " + res + "\n las imagenes son: " + str(self.imagenes)
 
     def iniciar_contratacion(self, tipo: TipoContratacion, nro_contratacion):
 
@@ -262,8 +262,32 @@ class Obra():
         self.plazo_meses =self.plazo_meses + meses
     
     def agregar_imagenes(self):
+        
         self.imagenes = []
-        imagen=Imagen(input("ingrese el nombre de la imagen: "))
-        self.imagenes.append(imagen)
+        
+        cond = True
+        while(cond):
 
-    
+            imagen=Imagen(input("ingrese el nombre de la imagen: "))
+            self.imagenes.append(imagen.nombre)
+            response = input('Desea agregar más imágenes? [s/n]: ')
+            
+            while(response != "n" and response != "N" and response != "s" and response != "S"):
+                print('(!) error: Responda sí o no')
+                response = input('Desea agregar más imágenes? [s/n]: ')
+
+            # Si el usuario ingresa N cambiamos la condición a False y salimos del bucle
+            if(response == 'n' or response == 'N'):
+                cond = False
+
+    def incrementar_mano_obra(self, cantidad:int):
+        self.mano_obra = self.mano_obra + cantidad
+
+    def finalizar_obra(self, obj_etapa_fin):
+        self.porcentaje_avance = 100
+        self.etapa = obj_etapa_fin
+
+    def rescindir_obra(self, obj_etapa_resc):
+        self.etapa = obj_etapa_resc
+
+ 
