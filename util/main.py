@@ -48,16 +48,19 @@ class Main(ABC):
 
             # creamos Obra
             try:               
-                print(f"se va a crear la obra {i}")
+                print(f"se va a crear la obra ")
                 obj_obra = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")), str(input("ingrese el nombre de la obra: ")), obj_etapa, preguntar_tipo_obra(), preguntar_area(), str(input("ingrese una descripcion: ")), float(
                     input("ingrese el monto del contrato: ")),preguntar_barrio(respuesta_comuna), str(input("ingrese la direcccion: ")), int(input("ingrese el plazo en meses: ")), str(input("ingrese a los beneficiarios: ")))
-                print("Obra 1 creada con éxito ")
+                print(f"Obra {i+1} creada con éxito ")
                 i = i + 1
             except:
                 print("Falló la creación de obra")
 
-            # Mostramos los valores iniciales sin modificar
+          
+         
 
+            # Mostramos los valores iniciales sin modificar
+            """
             print()   
             print("######################################")
             print(f"La obra nro {i} con sus valores inciales es: ")
@@ -76,10 +79,14 @@ class Main(ABC):
             # inicia contratacion (punto 5)
             obj_obra.iniciar_contratacion(preguntar_tipo_contratacion(), input(
                 "ingrese el numero de contratacion: "))
-
+            """
             # vamos a adjudicar la obra a una empresa (punto 6)
             obj_obra.adjudicar_obra(GestionarModelo.nueva_empresa(input("ingrese cuit de la empresa: "),input("ingrese la razon social: ")), input(
                 "ingrese el numero de expediente: "))
+            id_em=obtener_id_empresa(obj_obra)
+            print(id_em)
+
+            """
             
             #vamos a iniciar obra (punto 7)
             obra_destacada = obj_obra.es_destacada()
@@ -143,5 +150,5 @@ class Main(ABC):
         obtener_finalizadas_meses()
         print("######################################")
     
-        #obj_dao_obra = GestionarDAO.crear_objeto_dao("Obra_DAO")
-         #obj_dao_obra.seleccionar_todos_registros()
+    """
+         

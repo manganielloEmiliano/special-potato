@@ -1,5 +1,7 @@
 from util.gestionar_modelo import GestionarModelo
 from dao.tipo_obra_dao import TipoObra_DAO
+from dao.etapa_dao import Etapa_DAO
+from dao.empresa_dao import Empresa_DAO
 import sqlite3
 import os
 
@@ -170,64 +172,65 @@ def preguntar_comuna():
 def preguntar_barrio(comuna):
     print("Escriba el nombre del barrio: ")
     print()
-    
-    opt1="Monserrat"
-    opt2="San Nicolás"
-    opt3="Puerto Madero"
-    opt4="San Telmo"
-    opt5="Retiro"
-    opt6="Montserrat"
-    opt7="Constitución"
-    opt8="Constitucion"
-    opt9="San telmo"
-    opt10="Recoleta"
-    opt11="Balvanera"
-    opt12="San Cristóbal"
-    opt13="Parque Patricios"
-    opt14="Nueva Pompeya"
-    opt15="Barracas"
-    opt16="La Boca"
-    opt17="Boca"
-    opt18="Boedo"
-    opt19="Almagro"
-    opt20="Caballito"
-    opt21="Flores"
-    opt22="Parque Chacabuco"
-    opt23="Villa Soldati"
-    opt24="Villa Lugano"
-    opt25="Villa Riachuelo"
-    opt26="Villa 6 - Barrio Cildañez"
-    opt27="Parque Avellaneda"
-    opt28="Liniers"
-    opt29="Mataderos"
-    opt30="Villa Luro"
-    opt31="Floresta"
-    opt32="Versalles"
-    opt33="Monte Castro"
-    opt34="Villa Real"
-    opt35="Vélez Sarsfield"
-    opt36="Villa Gral. Mitre"
-    opt37="Villa Del Parque"
-    opt38="Villa Devoto"
-    opt39="Villa del Parque"
-    opt40="Villa Santa Rita"
-    opt41="Villa Urquiza"
-    opt42="Coghlan"
-    opt43="Saavedra"
-    opt44="Villa Pueyrredon"
-    opt45="NuÃ±ez"
-    opt46="Nuñez"
-    opt47="Belgrano"
-    opt48="Colegiales"
-    opt49="Palermo"
-    opt50="Chacarita"
-    opt51="Paternal"
-    opt52="Villa Crespo"
-    opt53="Parque Chas"
-    opt54="Agronomí­a"
-    opt55="Villa Ortuzar"    
-    
-    opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7,opt8, opt9, opt10, opt11, opt12, opt13, opt14,opt15, opt16, opt17, opt18, opt19, opt20, opt21,opt22, opt23, opt24, opt25, opt26, opt27, opt28,opt29, opt30, opt31,opt32, opt33, opt34, opt35, opt36, opt37, opt38,opt39, opt40, opt41,opt42, opt43, opt44, opt45, opt46, opt47, opt48,opt49, opt50, opt51, opt52,opt53, opt54]
+
+    opt1 = "Monserrat"
+    opt2 = "San Nicolás"
+    opt3 = "Puerto Madero"
+    opt4 = "San Telmo"
+    opt5 = "Retiro"
+    opt6 = "Montserrat"
+    opt7 = "Constitución"
+    opt8 = "Constitucion"
+    opt9 = "San telmo"
+    opt10 = "Recoleta"
+    opt11 = "Balvanera"
+    opt12 = "San Cristóbal"
+    opt13 = "Parque Patricios"
+    opt14 = "Nueva Pompeya"
+    opt15 = "Barracas"
+    opt16 = "La Boca"
+    opt17 = "Boca"
+    opt18 = "Boedo"
+    opt19 = "Almagro"
+    opt20 = "Caballito"
+    opt21 = "Flores"
+    opt22 = "Parque Chacabuco"
+    opt23 = "Villa Soldati"
+    opt24 = "Villa Lugano"
+    opt25 = "Villa Riachuelo"
+    opt26 = "Villa 6 - Barrio Cildañez"
+    opt27 = "Parque Avellaneda"
+    opt28 = "Liniers"
+    opt29 = "Mataderos"
+    opt30 = "Villa Luro"
+    opt31 = "Floresta"
+    opt32 = "Versalles"
+    opt33 = "Monte Castro"
+    opt34 = "Villa Real"
+    opt35 = "Vélez Sarsfield"
+    opt36 = "Villa Gral. Mitre"
+    opt37 = "Villa Del Parque"
+    opt38 = "Villa Devoto"
+    opt39 = "Villa del Parque"
+    opt40 = "Villa Santa Rita"
+    opt41 = "Villa Urquiza"
+    opt42 = "Coghlan"
+    opt43 = "Saavedra"
+    opt44 = "Villa Pueyrredon"
+    opt45 = "NuÃ±ez"
+    opt46 = "Nuñez"
+    opt47 = "Belgrano"
+    opt48 = "Colegiales"
+    opt49 = "Palermo"
+    opt50 = "Chacarita"
+    opt51 = "Paternal"
+    opt52 = "Villa Crespo"
+    opt53 = "Parque Chas"
+    opt54 = "Agronomí­a"
+    opt55 = "Villa Ortuzar"
+
+    opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13, opt14, opt15, opt16, opt17, opt18, opt19, opt20, opt21, opt22, opt23, opt24, opt25, opt26, opt27,
+                opt28, opt29, opt30, opt31, opt32, opt33, opt34, opt35, opt36, opt37, opt38, opt39, opt40, opt41, opt42, opt43, opt44, opt45, opt46, opt47, opt48, opt49, opt50, opt51, opt52, opt53, opt54]
 
     # mostramos opciones de barrio
 
@@ -252,7 +255,7 @@ def preguntar_barrio(comuna):
         if opcion_elegida > 0 and opcion_elegida < 55:
             try:
                 obj_barrio = GestionarModelo.nuevo_barrio(
-                    opciones[opcion_elegida - 1],comuna)
+                    opciones[opcion_elegida - 1], comuna)
                 print("barrio creado con éxito")
 
             except:
@@ -264,41 +267,43 @@ def preguntar_barrio(comuna):
             opcion_elegida = int(input("Elija el número de opción: "))
     return obj_barrio
 
+
 def preguntar_tipo_contratacion():
     print("Escriba el tipo contratacion: ")
     print()
-    
-    opt1="Licitación Pública"
-    opt2="Contratación Directa"
-    opt3="Contratacion Menor"
-    opt4="Contratación Menor"
-    opt5="Licitación Privada"
-    opt6="Licitacion Privada"
-    opt7="Licitacion Pí¹blica"
-    opt8="Licitacion Pública"
-    opt9="Decreto 433"
-    opt10="Ad Mantenimiento"
-    opt11="Anexo contratación mantenimiento"
-    opt12="Adicional de Mantenimiento"
-    opt13="Licitación"
-    opt14="Ad mantenimiento"
-    opt15="Licitación Pública Nacional"
-    opt16="Licitacion Publica"
-    opt17="Obra Publica"
-    opt18="LicitaciÃ³n PÃºblica"
-    opt19="Contratacion Directa"
-    opt20="433/16 (Decr Necesidad y Urgencia)"
-    opt21="Licitacion publica"
-    opt22="433"
-    opt23="CONTRATACIí“N DIRECTA"
-    opt24="Decreto 433/16"
-    opt25="Licitación Publica"
-    opt26="Licitación Pública de Obra Mayor NÂ° 682/SIGAF/2020,"
-    opt27="Licitación Pública Internacional"
-    opt28="Licitación Privada de Obra Menor"
-    opt29="LICITACIÓN PUBLICA"
-    opt30="Contratación menor"
-    opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7,opt8, opt9, opt10, opt11, opt12, opt13, opt14,opt15, opt16, opt17, opt18, opt19, opt20, opt21,opt22, opt23, opt24, opt25, opt26, opt27, opt28,opt29, opt30]
+
+    opt1 = "Licitación Pública"
+    opt2 = "Contratación Directa"
+    opt3 = "Contratacion Menor"
+    opt4 = "Contratación Menor"
+    opt5 = "Licitación Privada"
+    opt6 = "Licitacion Privada"
+    opt7 = "Licitacion Pí¹blica"
+    opt8 = "Licitacion Pública"
+    opt9 = "Decreto 433"
+    opt10 = "Ad Mantenimiento"
+    opt11 = "Anexo contratación mantenimiento"
+    opt12 = "Adicional de Mantenimiento"
+    opt13 = "Licitación"
+    opt14 = "Ad mantenimiento"
+    opt15 = "Licitación Pública Nacional"
+    opt16 = "Licitacion Publica"
+    opt17 = "Obra Publica"
+    opt18 = "LicitaciÃ³n PÃºblica"
+    opt19 = "Contratacion Directa"
+    opt20 = "433/16 (Decr Necesidad y Urgencia)"
+    opt21 = "Licitacion publica"
+    opt22 = "433"
+    opt23 = "CONTRATACIí“N DIRECTA"
+    opt24 = "Decreto 433/16"
+    opt25 = "Licitación Publica"
+    opt26 = "Licitación Pública de Obra Mayor NÂ° 682/SIGAF/2020,"
+    opt27 = "Licitación Pública Internacional"
+    opt28 = "Licitación Privada de Obra Menor"
+    opt29 = "LICITACIÓN PUBLICA"
+    opt30 = "Contratación menor"
+    opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13, opt14, opt15,
+                opt16, opt17, opt18, opt19, opt20, opt21, opt22, opt23, opt24, opt25, opt26, opt27, opt28, opt29, opt30]
     i = 1
 
     for o in opciones:
@@ -331,7 +336,6 @@ def preguntar_tipo_contratacion():
             print("Ingrese un número entre 1 y 30")
             opcion_elegida = int(input("Elija el número de opción: "))
     return obj_tipo_contratacion
-   
 
 
 def preguntar_fuente_financiamiento():
@@ -474,6 +478,7 @@ def obtener_finalizadas():
     # No te olvides de cerrar la conexión
     con.close()
 
+
 def obtener_finalizadas_meses():
 
     # Crea un objeto de conexión a la base de datos SQLite
@@ -491,19 +496,60 @@ def obtener_finalizadas_meses():
     # No te olvides de cerrar la conexión
     con.close()
 
+
 def obtener_id_tipoObra(objeto):
     while True:
-        obj_dao_tipoObra =TipoObra_DAO()
-        desc_tipo_obra =str(objeto.tipo_obra)
+        obj_dao_tipoObra = TipoObra_DAO()
+        desc_tipo_obra = str(objeto.tipo_obra)
         id_tipo_obra = 0
         for tipo in obj_dao_tipoObra.obtener_registros():
             if (tipo[1] == desc_tipo_obra):
                 id_tipo_obra = int(tipo[0])
                 break
         if id_tipo_obra > 0:
-            obj_tipo_obra_model = GestionarModelo.nuevo_tipo_obra(desc_tipo_obra)
+            obj_tipo_obra_model = GestionarModelo.nuevo_tipo_obra(
+                desc_tipo_obra)
             break
         else:
             print("El tipo de obra ingresado no existe en la BD")
-            
+            break
+
     return id_tipo_obra
+
+
+def obtener_id_etapa(objeto):
+    while True:
+        obj_dao_etapa = Etapa_DAO()
+        desc_etapa = str(objeto.etapa)
+        id_desc_etapa = 0
+
+        for tipo in obj_dao_etapa.obtener_registros():
+            if (tipo[1] == desc_etapa):
+                id_desc_etapa = int(tipo[0])
+                break
+        if id_desc_etapa  > 0:
+            obj_tipo_obra_model = GestionarModelo.nueva_etapa(
+                desc_etapa)
+            break
+        else:
+            print("El tipo de etapa ingresado no existe en la BD")
+            break
+    return id_desc_etapa
+
+def obtener_id_empresa(objeto):
+    while True:
+        obj_dao_empresa = Empresa_DAO()
+        raz_empresa =str(objeto.empresa.razon_social)
+        id_raz_empresa= 0
+
+        for tipo in obj_dao_empresa.obtener_registros():
+            if (tipo[2] == raz_empresa):
+                id_raz_empresa= int(tipo[0])
+                break
+        if id_raz_empresa > 0:
+            #obj_tipo_empresa = GestionarModelo.nueva_empresa(raz_empresa)
+            break
+        else:
+            print("El tipo de empresa  ingresado no existe en la BD")
+            break
+    return id_raz_empresa
