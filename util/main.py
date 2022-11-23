@@ -102,10 +102,10 @@ class Main(ABC):
 
             # Punto 2 de la consiga: crear 2 obras en etapa finalizada y una en rescindida
 
-            if i == 1 or i == 2:
+            if i == 0 or i == 1:
                 # finalizamos una obra (etapa finalizada)
                 obj_obra.finalizar_obra(obj_etapa_fin)
-            elif i == 3:
+            elif i == 2:
                 # rescindimos una obra (etapa rescindida)
                 obj_obra.rescindir_obra(obj_etapa_resc)
 
@@ -117,6 +117,24 @@ class Main(ABC):
             print(obj_obra)
             print()
             print("######################################")
+            #punto 14 ,persistir las obras en la bd
+            listaid = []
+            id_et = obtener_id_etapa(obj_obra)
+            listaid.append(id_et)
+            id_em = obtener_id_empresa(obj_obra)
+            listaid.append(id_em)
+            id_t_obra=obtener_id_tipoObra(obj_obra)
+            listaid.append(id_t_obra)
+            id_ar=obtener_id_area(obj_obra)
+            listaid.append(id_ar)
+            id_ba=obtener_id_barrio(obj_obra)
+            listaid.append(id_ba)
+            id_t_contra =obtener_id_tipo_contratacion(obj_obra)
+            listaid.append(id_t_contra)
+            id_ff=obtener_id_ff(obj_obra)
+            listaid.append(id_ff)
+            obj_dao_obra=GestionarDAO.crear_objeto_dao("Obra_DAO")
+            GestionarDAO.insertar_registro(obj_dao_obra,obj_obra,listaid)
 
         print("######################################")
         print("tipos de area")
