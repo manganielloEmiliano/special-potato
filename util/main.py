@@ -49,7 +49,7 @@ class Main(ABC):
             # creamos Obra
             try:               
                 print(f"se va a crear la obra {i}")
-                obj_obraz = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")), str(input("ingrese el nombre de la obra: ")), obj_etapa, preguntar_tipo_obra(), preguntar_area(), str(input("ingrese una descripcion: ")), float(
+                obj_obra = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")), str(input("ingrese el nombre de la obra: ")), obj_etapa, preguntar_tipo_obra(), preguntar_area(), str(input("ingrese una descripcion: ")), float(
                     input("ingrese el monto del contrato: ")), respuesta_barrio, str(input("ingrese la direcccion: ")), int(input("ingrese el plazo en meses: ")), str(input("ingrese a los beneficiarios: ")))
                 print("Obra 1 creada con éxito ")
                 i = i + 1

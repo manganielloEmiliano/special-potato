@@ -1,4 +1,5 @@
 from util.gestionar_modelo import GestionarModelo
+from dao.tipo_obra_dao import TipoObra_DAO
 import sqlite3
 import os
 
@@ -8,15 +9,15 @@ def preguntar_tipo_obra():
     print("Seleccione el tipo de obra que se va a desarrollar: ")
     print()
 
-    opt1 = "Transporte"
-    opt2 = "Hidráulica e Infraestructura"
-    opt3 = "Arquitectura"
-    opt4 = "Escuelas"
+    opt1 = "Espacio Público"
+    opt2 = "Arquitectura"
+    opt3 = "Escuelas"
+    opt4 = "Hidráulica E Infraestructura"
     opt5 = "Salud"
-    opt6 = "Espacio Público"
-    opt7 = "Vivienda Nueva"
-    opt8 = "Hidráulica E Infraestructura"
-    opt9 = "Vivienda"
+    opt6 = "Hidráulica e Infraestructura"
+    opt7 = "Transporte"
+    opt8 = "Vivienda"
+    opt9 = "Vivienda Nueva"
     opt10 = "Infraestructura"
 
     opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10]
@@ -424,3 +425,19 @@ def obtener_finalizadas_meses():
     # No te olvides de cerrar la conexión
     con.close()
 
+def obtener_id_tipoObra(objeto):
+    while True:
+        obj_dao_tipoObra =TipoObra_DAO()
+        desc_tipo_obra =str(objeto.tipo_obra)
+        id_tipo_obra = 0
+        for tipo in obj_dao_tipoObra.obtener_registros():
+            if (tipo[1] == desc_tipo_obra):
+                id_tipo_obra = int(tipo[0])
+                break
+        if id_tipo_obra > 0:
+            obj_tipo_obra_model = GestionarModelo.nuevo_tipo_obra(desc_tipo_obra)
+            break
+        else:
+            print("El tipo de obra ingresado no existe en la BD")
+            
+    return id_tipo_obra
