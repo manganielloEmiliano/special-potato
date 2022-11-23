@@ -10,7 +10,7 @@ from model.comuna import Comuna
 from model.empresa import Empresa
 
 class Main(ABC):
-
+    
     @classmethod
     def main(cls):
         # importar dataset .csv a la base de datos
@@ -49,7 +49,7 @@ class Main(ABC):
             # creamos Obra
             try:               
                 print(f"se va a crear la obra {i}")
-                obj_obra = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")), str(input("ingrese el nombre de la obra: ")), obj_etapa, preguntar_tipo_obra(), preguntar_area(), str(input("ingrese una descripcion: ")), float(
+                obj_obraz = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")), str(input("ingrese el nombre de la obra: ")), obj_etapa, preguntar_tipo_obra(), preguntar_area(), str(input("ingrese una descripcion: ")), float(
                     input("ingrese el monto del contrato: ")), respuesta_barrio, str(input("ingrese la direcccion: ")), int(input("ingrese el plazo en meses: ")), str(input("ingrese a los beneficiarios: ")))
                 print("Obra 1 creada con éxito ")
                 i = i + 1
@@ -114,3 +114,34 @@ class Main(ABC):
             print(obj_obra)
             print()
             print("######################################")
+        
+        print("######################################")
+        print("tipos de area")
+        obtener_tabla("areas")
+        print("######################################")
+        print("tipos de obras")
+        obtener_tabla("tipos_obras")
+        print("######################################")
+        
+        print("obtener cantidad de obras por etapa")
+        obtener_obras_etapa()
+        print("######################################")
+
+        print("obtener cantidad de obras por tipo de obra")
+        obtener_obras_tipoObra()
+        print("######################################")
+        
+        print("obtener barrios de las comunas 1,2 y 3")
+        obtener_barrios_comunas()
+        print("######################################")
+
+        print("obtener obras finalizadas de la comuna 1")
+        obtener_finalizadas()
+        print("######################################")
+
+        print("obtener obras finalizadas con un plazo menor o igual a 24 meses")
+        obtener_finalizadas_meses()
+        print("######################################")
+    
+        #obj_dao_obra = GestionarDAO.crear_objeto_dao("Obra_DAO")
+         #obj_dao_obra.seleccionar_todos_registros()

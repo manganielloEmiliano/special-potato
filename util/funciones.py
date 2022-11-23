@@ -1,4 +1,6 @@
 from util.gestionar_modelo import GestionarModelo
+import sqlite3
+import os
 
 
 def preguntar_tipo_obra():
@@ -163,6 +165,7 @@ def preguntar_comuna():
 
     return obj_comuna
 
+
 def preguntar_barrio():
     print("Escriba el nombre del barrio: ")
     print()
@@ -225,6 +228,7 @@ def preguntar_barrio():
     """)
     print()
 
+
 def preguntar_tipo_contratacion():
     print("Escriba el tipo contratacion: ")
     print()
@@ -262,6 +266,7 @@ def preguntar_tipo_contratacion():
     """)
     print()
 
+
 def preguntar_fuente_financiamiento():
     print()
     print("Seleccione la fuente de financiamiento de la obra: ")
@@ -274,7 +279,6 @@ def preguntar_fuente_financiamiento():
     opt5 = "Préstamo BIRF 8706-AR"
     opt6 = "Préstamo BID AR-L1260"
     opt7 = "CAF-Nación-GCBA"
-
 
     opciones = [opt1, opt2, opt3, opt4, opt5, opt6, opt7]
 
@@ -300,7 +304,8 @@ def preguntar_fuente_financiamiento():
     while True:
         if opcion_elegida > 0 and opcion_elegida < 8:
             try:
-                obj_ff = GestionarModelo.nueva_fuente_financiamiento(opciones[opcion_elegida - 1])
+                obj_ff = GestionarModelo.nueva_fuente_financiamiento(
+                    opciones[opcion_elegida - 1])
                 print("FF creada con éxito")
 
             except:
@@ -313,3 +318,109 @@ def preguntar_fuente_financiamiento():
 
     # retornamos el objeto
     return obj_ff
+
+
+def obtener_tabla(nombre_tabla: str):
+
+    # Crea un objeto de conexión a la base de datos SQLite
+    con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+    # Con la conexión, crea un objeto cursor
+    cur = con.cursor()
+
+    # El resultado de "cursor.execute" puede ser iterado por fila
+    # punt 15 a) consultar todas las areas
+    for row in cur.execute(f"SELECT * FROM {nombre_tabla}"):
+        print(row)
+
+    # No te olvides de cerrar la conexión
+    con.close()
+
+
+def obtener_obras_etapa():
+
+    # Crea un objeto de conexión a la base de datos SQLite
+    con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+    # Con la conexión, crea un objeto cursor
+    cur = con.cursor()
+
+    # El resultado de "cursor.execute" puede ser iterado por fila
+    # punt 15 a) consultar todas las areas
+    for row in cur.execute("SELECT count(*), etapas.descripcion FROM obras LEFT JOIN etapas ON obras.id_etapa = etapas.id GROUP BY id_etapa"):
+        print(row)
+
+    # No te olvides de cerrar la conexión
+    con.close()
+
+
+def obtener_obras_tipoObra():
+
+    # Crea un objeto de conexión a la base de datos SQLite
+    con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+    # Con la conexión, crea un objeto cursor
+    cur = con.cursor()
+
+    # El resultado de "cursor.execute" puede ser iterado por fila
+    # punt 15 a) consultar todas las areas
+    for row in cur.execute("SELECT count(*), tipos_obras.descripcion FROM obras LEFT JOIN tipos_obras ON obras.id_tipo_obra = tipos_obras.id GROUP BY id_tipo_obra"):
+
+        print(row)
+
+    # No te olvides de cerrar la conexión
+    con.close()
+
+
+def obtener_barrios_comunas():
+
+    # Crea un objeto de conexión a la base de datos SQLite
+    con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+    # Con la conexión, crea un objeto cursor
+    cur = con.cursor()
+
+    # El resultado de "cursor.execute" puede ser iterado por fila
+    # punt 15 a) consultar todas las areas
+    for row in cur.execute("SELECT nombre, nro_comuna FROM barrios WHERE nro_comuna IN(1,2,3) ORDER BY nro_comuna"):
+
+        print(row)
+
+    # No te olvides de cerrar la conexión
+    con.close()
+
+
+def obtener_finalizadas():
+
+    # Crea un objeto de conexión a la base de datos SQLite
+    con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+    # Con la conexión, crea un objeto cursor
+    cur = con.cursor()
+
+    # El resultado de "cursor.execute" puede ser iterado por fila
+    # punt 15 a) consultar todas las areas
+    for row in cur.execute("SELECT count(*) FROM obras WHERE id_etapa = 1 AND id_barrio BETWEEN 1 AND 9"):
+
+        print(row)
+
+    # No te olvides de cerrar la conexión
+    con.close()
+
+def obtener_finalizadas_meses():
+
+    # Crea un objeto de conexión a la base de datos SQLite
+    con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+    # Con la conexión, crea un objeto cursor
+    cur = con.cursor()
+
+    # El resultado de "cursor.execute" puede ser iterado por fila
+    # punt 15 a) consultar todas las areas
+    for row in cur.execute("SELECT count(*) FROM obras WHERE id_etapa = 1 AND plazo_meses <= 24"):
+
+        print(row)
+
+    # No te olvides de cerrar la conexión
+    con.close()
+

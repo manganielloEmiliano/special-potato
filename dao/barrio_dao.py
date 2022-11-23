@@ -136,7 +136,7 @@ class Barrio_DAO(DAO):
     def obtener_registro_desde_csv(self, valor):
         try:
             db, cursor = self.conectar_bd()
-            cursor.execute(f"SELECT * FROM {self.nombre_tabla} WHERE nombre='{valor}'")
+            cursor.execute("SELECT nombre, nro_comuna FROM barrios WHERE nro_comuna IN(1,2,3) ORDER BY nro_comuna")
             return cursor.fetchone()
         except Exception as e:
             #print(f"Ocurrió un error al seleccionar el barrio={valor}. {e}")
