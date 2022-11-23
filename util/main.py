@@ -41,8 +41,8 @@ class Main(ABC):
 
             # punto 4.b del enunciado, asignando valores
             respuesta_comuna = preguntar_comuna()
-            preguntar_barrio()
-            respuesta_barrio = GestionarModelo.nuevo_barrio(input("escriba el nombre del barrio: "), respuesta_comuna)
+            
+            
             # preguntar_tipo_contratacion()
             #respuesta_tipo_contratacion=GestionarModelo.nuevo_tipo_contratacion(input("esciba el tipo de contratacion: "))
 
@@ -50,7 +50,7 @@ class Main(ABC):
             try:               
                 print(f"se va a crear la obra {i}")
                 obj_obra = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")), str(input("ingrese el nombre de la obra: ")), obj_etapa, preguntar_tipo_obra(), preguntar_area(), str(input("ingrese una descripcion: ")), float(
-                    input("ingrese el monto del contrato: ")), respuesta_barrio, str(input("ingrese la direcccion: ")), int(input("ingrese el plazo en meses: ")), str(input("ingrese a los beneficiarios: ")))
+                    input("ingrese el monto del contrato: ")),preguntar_barrio(respuesta_comuna), str(input("ingrese la direcccion: ")), int(input("ingrese el plazo en meses: ")), str(input("ingrese a los beneficiarios: ")))
                 print("Obra 1 creada con éxito ")
                 i = i + 1
             except:
@@ -71,10 +71,10 @@ class Main(ABC):
 
             print("va a ingresar el tipo de contratacion y el num de la misma\n")            
             # a continuacion mostramos los tipos de obra para que el usuario pueda ingresarla por teclado
-            preguntar_tipo_contratacion()
+            
 
             # inicia contratacion (punto 5)
-            obj_obra.iniciar_contratacion(input("ingrese el tipo de contratacion: "), input(
+            obj_obra.iniciar_contratacion(preguntar_tipo_contratacion(), input(
                 "ingrese el numero de contratacion: "))
 
             # vamos a adjudicar la obra a una empresa (punto 6)
