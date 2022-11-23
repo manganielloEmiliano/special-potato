@@ -2,6 +2,10 @@ from util.gestionar_modelo import GestionarModelo
 from dao.tipo_obra_dao import TipoObra_DAO
 from dao.etapa_dao import Etapa_DAO
 from dao.empresa_dao import Empresa_DAO
+from dao.area_dao import Area_DAO
+from dao.barrio_dao import Barrio_DAO
+from dao.tipo_contratacion_dao import TipoContratacion_DAO
+from dao.fuente_financiamiento_dao import FuenteFinanciamiento_DAO
 import sqlite3
 import os
 
@@ -527,7 +531,7 @@ def obtener_id_etapa(objeto):
             if (tipo[1] == desc_etapa):
                 id_desc_etapa = int(tipo[0])
                 break
-        if id_desc_etapa  > 0:
+        if id_desc_etapa > 0:
             obj_tipo_obra_model = GestionarModelo.nueva_etapa(
                 desc_etapa)
             break
@@ -536,15 +540,16 @@ def obtener_id_etapa(objeto):
             break
     return id_desc_etapa
 
+
 def obtener_id_empresa(objeto):
     while True:
         obj_dao_empresa = Empresa_DAO()
-        raz_empresa =str(objeto.empresa.razon_social)
-        id_raz_empresa= 0
+        raz_empresa = str(objeto.empresa.razon_social)
+        id_raz_empresa = 0
 
         for tipo in obj_dao_empresa.obtener_registros():
             if (tipo[2] == raz_empresa):
-                id_raz_empresa= int(tipo[0])
+                id_raz_empresa = int(tipo[0])
                 break
         if id_raz_empresa > 0:
             #obj_tipo_empresa = GestionarModelo.nueva_empresa(raz_empresa)
@@ -553,3 +558,82 @@ def obtener_id_empresa(objeto):
             print("El tipo de empresa  ingresado no existe en la BD")
             break
     return id_raz_empresa
+
+
+def obtener_id_area(objeto):
+    while True:
+        obj_dao_area = Area_DAO()
+        desc_area = str(objeto.area_responsable)
+        id_tipo_area = 0
+        for tipo in obj_dao_area.obtener_registros():
+            if (tipo[1] == desc_area):
+                id_tipo_area = int(tipo[0])
+                break
+        if id_tipo_area > 0:
+            obj_area_model = GestionarModelo.nueva_area(
+                desc_area)
+            break
+        else:
+            print("El tipo de area ingresado no existe en la BD")
+            break
+
+    return id_tipo_area
+
+
+def obtener_id_barrio(objeto):
+    while True:
+        obj_dao_barrio = Barrio_DAO()
+        nombre_barrio = str(objeto.barrio.nombre)
+        id_barrio = 0
+
+        for tipo in obj_dao_barrio.obtener_registros():
+            if (tipo[1] == nombre_barrio):
+                id_barrio = int(tipo[0])
+                break
+        if id_barrio > 0:
+            #obj_tipo_empresa = GestionarModelo.nueva_empresa(raz_empresa)
+            break
+        else:
+            print("El tipo de barrio  ingresado no existe en la BD")
+            break
+    return id_barrio
+
+
+def obtener_id_tipo_contratacion(objeto):
+    while True:
+        obj_dao_tipo_contratacion = TipoContratacion_DAO()
+        desc_etapa_tipo_contratacion = str(objeto.tipo_contratacion)
+        id_tipo_contratacion = 0
+
+        for tipo in obj_dao_tipo_contratacion.obtener_registros():
+            if (tipo[1] == desc_etapa_tipo_contratacion):
+                id_tipo_contratacion = int(tipo[0])
+                break
+        if id_tipo_contratacion > 0:
+            obj_tipo_tipo_contratacion = GestionarModelo.nuevo_tipo_contratacion(
+                desc_etapa_tipo_contratacion)
+            break
+        else:
+            print("El tipo de contratacion ingresado no existe en la BD")
+            break
+    return id_tipo_contratacion
+
+
+def obtener_id_ff(objeto):
+    while True:
+        obj_dao_ff= FuenteFinanciamiento_DAO()
+        desc_ff = str(objeto.fuente_financiamiento.nombre)
+        id_tipo_ff = 0
+
+        for tipo in obj_dao_ff.obtener_registros():
+            if (tipo[1] == desc_ff):
+                id_tipo_ff = int(tipo[0])
+                break
+        if id_tipo_ff > 0:
+            obj_tipo_ff = GestionarModelo.nueva_fuente_financiamiento(
+                desc_ff)
+            break
+        else:
+            print("El tipo ff ingresado no existe en la BD")
+            break
+    return id_tipo_ff
