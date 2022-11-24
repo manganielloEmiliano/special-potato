@@ -9,8 +9,9 @@ from model.barrio import Barrio
 from model.comuna import Comuna
 from model.empresa import Empresa
 
+
 class Main(ABC):
-    
+
     @classmethod
     def main(cls):
         # importar dataset .csv a la base de datos
@@ -27,13 +28,13 @@ class Main(ABC):
             obj_etapa_fin = GestionarModelo.nueva_etapa("Finalizada")
             obj_etapa_resc = GestionarModelo.nueva_etapa("Rescindida")
             obj_dao_etapa = GestionarDAO.crear_objeto_dao("Etapa_DAO")
-            GestionarDAO.insertar_registro(obj_dao_etapa, obj_etapa)
+            GestionarDAO.insertar_registro_general(obj_dao_etapa, obj_etapa)
             print("Etapa guardada con éxito en la BD")
         except:
             print("Falló la creación de etapa")
 
         # Creación de 3 obras (punto 2)
-        
+
         i = 0
         obj_obra = 0
 
@@ -41,24 +42,23 @@ class Main(ABC):
 
             # punto 4.b del enunciado, asignando valores
             respuesta_comuna = preguntar_comuna()
-            preguntar_barrio()
-            respuesta_barrio = GestionarModelo.nuevo_barrio(input("escriba el nombre del barrio: "), respuesta_comuna)
+
             # preguntar_tipo_contratacion()
             #respuesta_tipo_contratacion=GestionarModelo.nuevo_tipo_contratacion(input("esciba el tipo de contratacion: "))
 
             # creamos Obra
-            try:               
-                print(f"se va a crear la obra {i}")
+            try:
+                print(f"se va a crear la obra ")
                 obj_obra = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")), str(input("ingrese el nombre de la obra: ")), obj_etapa, preguntar_tipo_obra(), preguntar_area(), str(input("ingrese una descripcion: ")), float(
-                    input("ingrese el monto del contrato: ")), respuesta_barrio, str(input("ingrese la direcccion: ")), int(input("ingrese el plazo en meses: ")), str(input("ingrese a los beneficiarios: ")))
-                print("Obra 1 creada con éxito ")
+                    input("ingrese el monto del contrato: ")), preguntar_barrio(respuesta_comuna), str(input("ingrese la direcccion: ")), int(input("ingrese el plazo en meses: ")), str(input("ingrese a los beneficiarios: ")))
+                print(f"Obra {i+1} creada con éxito ")
                 i = i + 1
             except:
                 print("Falló la creación de obra")
 
             # Mostramos los valores iniciales sin modificar
 
-            print()   
+            print()
             print("######################################")
             print(f"La obra nro {i} con sus valores inciales es: ")
             print("######################################")
@@ -67,46 +67,49 @@ class Main(ABC):
             print()
             print("######################################")
 
-            # Empezamos a usar los métodos de Obra            
+            # Empezamos a usar los métodos de Obra
 
-            print("va a ingresar el tipo de contratacion y el num de la misma\n")            
+            print("va a ingresar el tipo de contratacion y el num de la misma\n")
             # a continuacion mostramos los tipos de obra para que el usuario pueda ingresarla por teclado
-            preguntar_tipo_contratacion()
 
             # inicia contratacion (punto 5)
-            obj_obra.iniciar_contratacion(input("ingrese el tipo de contratacion: "), input(
+            obj_obra.iniciar_contratacion(preguntar_tipo_contratacion(), input(
                 "ingrese el numero de contratacion: "))
-
+            
             # vamos a adjudicar la obra a una empresa (punto 6)
-            obj_obra.adjudicar_obra(GestionarModelo.nueva_empresa(input("ingrese cuit de la empresa: "),input("ingrese la razon social: ")), input(
+            obj_obra.adjudicar_obra(GestionarModelo.nueva_empresa(input("ingrese cuit de la empresa: "), input("ingrese la razon social: ")), input(
                 "ingrese el numero de expediente: "))
-            
-            #vamos a iniciar obra (punto 7)
+
+                # vamos a iniciar obra (punto 7)
             obra_destacada = obj_obra.es_destacada()
-            obj_obra.iniciar_obra(obra_destacada, input("ingrese la fecha de inicio: "), input("ingrese la fecha de finalizacion: "), preguntar_fuente_financiamiento(), int(input("ingrese la cantidad de mano de obra: ")))
-            
-            #actualizamos el porcentaje de avance (punto 8)
-            obj_obra.actualizar_porcentaje_avance(int(input("ingrese el porcentaje de avance: ")))
-            
-            #incrementamos el plazo de meses (punto 9)
-            obj_obra.incrementar_plazo(int(input("ingrese en cuantos meses incrementara el plazo: ")))
-            
-            #agregamos imagenes (punto 10)
+            obj_obra.iniciar_obra(obra_destacada, input("ingrese la fecha de inicio: "), input(
+                "ingrese la fecha de finalizacion: "), preguntar_fuente_financiamiento(), int(input("ingrese la cantidad de mano de obra: ")))
+
+            # actualizamos el porcentaje de avance (punto 8)
+            obj_obra.actualizar_porcentaje_avance(
+                int(input("ingrese el porcentaje de avance: ")))
+
+            # incrementamos el plazo de meses (punto 9)
+            obj_obra.incrementar_plazo(
+                int(input("ingrese en cuantos meses incrementara el plazo: ")))
+
+            # agregamos imagenes (punto 10)
             obj_obra.agregar_imagenes()
 
             # incrementamo mano de obra en cantidad de empleados (punto 11)
-            obj_obra.incrementar_mano_obra(int(input("Ingrese la cantidad de nuevos empleados que se agregará: "))) 
-            
+            obj_obra.incrementar_mano_obra(
+                int(input("Ingrese la cantidad de nuevos empleados que se agregará: ")))
+
             # Punto 2 de la consiga: crear 2 obras en etapa finalizada y una en rescindida
 
-            if i == 1 or i == 2:
+            if i == 0 or i == 1:
                 # finalizamos una obra (etapa finalizada)
                 obj_obra.finalizar_obra(obj_etapa_fin)
-            elif i == 3:                   
+            elif i == 2:
                 # rescindimos una obra (etapa rescindida)
                 obj_obra.rescindir_obra(obj_etapa_resc)
 
-            print()   
+            print()
             print("######################################")
             print(f"La obra nro {i} con sus valores modificados es: ")
             print("######################################")
@@ -114,7 +117,26 @@ class Main(ABC):
             print(obj_obra)
             print()
             print("######################################")
-        
+            #punto 14 ,persistir las obras en la bd
+            listaid = []
+            id_et = obtener_id_etapa(obj_obra)
+            listaid.append(id_et)
+            id_em = obtener_id_empresa(obj_obra)
+            listaid.append(id_em)
+            id_t_obra=obtener_id_tipoObra(obj_obra)
+            listaid.append(id_t_obra)
+            id_ar=obtener_id_area(obj_obra)
+            listaid.append(id_ar)
+            id_ba=obtener_id_barrio(obj_obra)
+            listaid.append(id_ba)
+            id_t_contra =obtener_id_tipo_contratacion(obj_obra)
+            listaid.append(id_t_contra)
+            id_ff=obtener_id_ff(obj_obra)
+            listaid.append(id_ff)
+            obj_dao_obra=GestionarDAO.crear_objeto_dao("Obra_DAO")
+            GestionarDAO.insertar_registro(obj_dao_obra,obj_obra,listaid)
+            print("la obra se guardo en la base de datos")
+
         print("######################################")
         print("tipos de area")
         obtener_tabla("areas")
@@ -122,7 +144,7 @@ class Main(ABC):
         print("tipos de obras")
         obtener_tabla("tipos_obras")
         print("######################################")
-        
+
         print("obtener cantidad de obras por etapa")
         obtener_obras_etapa()
         print("######################################")
@@ -130,7 +152,7 @@ class Main(ABC):
         print("obtener cantidad de obras por tipo de obra")
         obtener_obras_tipoObra()
         print("######################################")
-        
+
         print("obtener barrios de las comunas 1,2 y 3")
         obtener_barrios_comunas()
         print("######################################")
@@ -142,6 +164,3 @@ class Main(ABC):
         print("obtener obras finalizadas con un plazo menor o igual a 24 meses")
         obtener_finalizadas_meses()
         print("######################################")
-    
-        #obj_dao_obra = GestionarDAO.crear_objeto_dao("Obra_DAO")
-         #obj_dao_obra.seleccionar_todos_registros()

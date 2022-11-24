@@ -20,4 +20,4 @@ class Empresa():
         self.__razon_social = valor
     
     def __str__(self):
-        return " el cuit de la empresa es:" + self.cuit +  "\n la razon social es:"+self.razon_social
+        return " el cuit de la empresa es:" + str(self.cuit )+  "\n la razon social es:"+str(self.razon_social)

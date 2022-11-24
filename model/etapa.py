@@ -11,4 +11,4 @@ class Etapa():
         self.__descripcion = valor
     
     def __str__(self):
-        return self.descripcion
+        return str(self.descripcion)

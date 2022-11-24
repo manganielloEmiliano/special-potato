@@ -313,7 +313,11 @@ class GestionarDAO(ABC):
         else:
             last_id =objeto.insertar_registro(objeto_modelo, lista_id)
         return last_id
-
+    
+    @classmethod
+    def insertar_registro_general(cls,objeto:DAO,objeto_modelo):
+        objeto.insertar_registro(objeto_modelo)
+   
     @classmethod
     def insertar_varios_registros(cls,objeto:DAO,listado):
         pass

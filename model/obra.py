@@ -11,7 +11,7 @@ from model.imagen import Imagen
 
 class Obra():
 
-    def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str,  plazo_meses: int, beneficiarios: str, tipo_contratacion="0", nro_contratacion="0", mano_obra="0", destacada=0, expediente_numero="0", fuente_financiamiento="0", fecha_inicio="0", fecha_fin_inicial="0", porcentaje_avance = 0, imagenes = 0, empresa="0", licitacion_anio="0"):
+    def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str,  plazo_meses: int, beneficiarios: str, tipo_contratacion="0", nro_contratacion="0", mano_obra="0", destacada=0, expediente_numero="0", fuente_financiamiento ="0", fecha_inicio="0", fecha_fin_inicial="0", porcentaje_avance = 0, imagenes = 0, empresa="0", licitacion_anio="0"):
         self.entorno = entorno
         self.nombre = nombre
         self.etapa = etapa
