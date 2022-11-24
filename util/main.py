@@ -133,7 +133,7 @@ class Main(ABC):
             print("la obra se guardo en la base de datos")
             if i >= 3:
                 print("######################################")
-                continuar = input("si desea continuar ingrese s")
+                continuar = input("si desea continuar ingrese s: ")
                 print("######################################")
                 if continuar == "s" :
                     k = k + 1
