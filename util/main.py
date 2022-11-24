@@ -28,7 +28,7 @@ class Main(ABC):
             obj_etapa_fin = GestionarModelo.nueva_etapa("Finalizada")
             obj_etapa_resc = GestionarModelo.nueva_etapa("Rescindida")
             obj_dao_etapa = GestionarDAO.crear_objeto_dao("Etapa_DAO")
-            GestionarDAO.insertar_registro(obj_dao_etapa, obj_etapa)
+            GestionarDAO.insertar_registro_general(obj_dao_etapa, obj_etapa)
             print("Etapa guardada con éxito en la BD")
         except:
             print("Falló la creación de etapa")
@@ -75,12 +75,12 @@ class Main(ABC):
             # inicia contratacion (punto 5)
             obj_obra.iniciar_contratacion(preguntar_tipo_contratacion(), input(
                 "ingrese el numero de contratacion: "))
-
+            
             # vamos a adjudicar la obra a una empresa (punto 6)
             obj_obra.adjudicar_obra(GestionarModelo.nueva_empresa(input("ingrese cuit de la empresa: "), input("ingrese la razon social: ")), input(
                 "ingrese el numero de expediente: "))
 
-            # vamos a iniciar obra (punto 7)
+                # vamos a iniciar obra (punto 7)
             obra_destacada = obj_obra.es_destacada()
             obj_obra.iniciar_obra(obra_destacada, input("ingrese la fecha de inicio: "), input(
                 "ingrese la fecha de finalizacion: "), preguntar_fuente_financiamiento(), int(input("ingrese la cantidad de mano de obra: ")))
@@ -135,6 +135,7 @@ class Main(ABC):
             listaid.append(id_ff)
             obj_dao_obra=GestionarDAO.crear_objeto_dao("Obra_DAO")
             GestionarDAO.insertar_registro(obj_dao_obra,obj_obra,listaid)
+            print("la obra se guardo en la base de datos")
 
         print("######################################")
         print("tipos de area")

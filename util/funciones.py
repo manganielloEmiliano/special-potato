@@ -1,4 +1,5 @@
 from util.gestionar_modelo import GestionarModelo
+from util.gestionar_dao import GestionarDAO
 from dao.tipo_obra_dao import TipoObra_DAO
 from dao.etapa_dao import Etapa_DAO
 from dao.empresa_dao import Empresa_DAO
@@ -545,17 +546,21 @@ def obtener_id_empresa(objeto):
     while True:
         obj_dao_empresa = Empresa_DAO()
         raz_empresa = str(objeto.empresa.razon_social)
+        cuit_empresa =str(objeto.empresa.cuit)
         id_raz_empresa = 0
 
         for tipo in obj_dao_empresa.obtener_registros():
             if (tipo[2] == raz_empresa):
                 id_raz_empresa = int(tipo[0])
                 break
-        if id_raz_empresa > 0:
-            #obj_tipo_empresa = GestionarModelo.nueva_empresa(raz_empresa)
-            break
+        if id_raz_empresa == 0:
+          
+            obj_empresa = GestionarModelo.nueva_empresa(cuit_empresa,raz_empresa)
+            GestionarDAO.insertar_registro_general(obj_dao_empresa,obj_empresa)
+            print("la empresa no estaba ingresado en la BD")
+            print("empresa ingresada de la base de datos")
         else:
-            print("El tipo de empresa  ingresado no existe en la BD")
+            
             break
     return id_raz_empresa
 
@@ -630,8 +635,8 @@ def obtener_id_ff(objeto):
                 id_tipo_ff = int(tipo[0])
                 break
         if id_tipo_ff > 0:
-            obj_tipo_ff = GestionarModelo.nueva_fuente_financiamiento(
-                desc_ff)
+            #obj_tipo_ff = GestionarModelo.nueva_fuente_financiamiento(
+             #   desc_ff)
             break
         else:
             print("El tipo ff ingresado no existe en la BD")
