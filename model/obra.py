@@ -250,11 +250,18 @@ class Obra():
         self.expediente_numero = expediente_numero
     
     def es_destacada(self):
-        es_destacada = int(input("Esta obra es destacada? [1 para sí, 0 para no]: "))
-        if es_destacada == 0:
-            return False
-        else:
-            return True
+        while True:
+            try:
+                es_destacada = int(input("Esta obra es destacada? [1 para sí, 0 para no]: "))
+                if es_destacada == 0:
+                    return False
+                    break
+                else:
+                    return True
+                    break
+            except:
+                print("ingrese numeros: ")
+
     
     def iniciar_obra(self,destacada:bool,fecha_inicio:str,fecha_fin_inicial,fuente_financiamiento:FuenteFinanciamiento,mano_obra:int):
         self.destacada = destacada

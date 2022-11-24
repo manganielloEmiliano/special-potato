@@ -68,8 +68,13 @@ class Main(ABC):
             # a continuacion mostramos los tipos de obra para que el usuario pueda ingresarla por teclado
 
             # inicia contratacion (punto 5)
-            obj_obra.iniciar_contratacion(preguntar_tipo_contratacion(), input(
-                "ingrese el numero de contratacion: "))
+            while True:
+                try:
+                    obj_obra.iniciar_contratacion(preguntar_tipo_contratacion(), input(
+                        "ingrese el numero de contratacion: "))
+                    break
+                except ValueError as e:
+                    print('Ingrese numeros: ', e)
 
             # vamos a adjudicar la obra a una empresa (punto 6)
             obj_obra.adjudicar_obra(GestionarModelo.nueva_empresa(input("ingrese cuit de la empresa: "), input("ingrese la razon social: ")), input(
@@ -77,23 +82,43 @@ class Main(ABC):
 
             # vamos a iniciar obra (punto 7)
             obra_destacada = obj_obra.es_destacada()
+            while True:
+                try:
+                    mano_obra =int(input("ingrese la cantidad de mano de obra: "))
+                    break
+                except ValueError as e:
+                    print('Ingrese numeros: ', e)
             obj_obra.iniciar_obra(obra_destacada, input("ingrese la fecha de inicio: "), input(
-                "ingrese la fecha de finalizacion: "), preguntar_fuente_financiamiento(), int(input("ingrese la cantidad de mano de obra: ")))
+                "ingrese la fecha de finalizacion: "), preguntar_fuente_financiamiento(), mano_obra)
 
             # actualizamos el porcentaje de avance (punto 8)
-            obj_obra.actualizar_porcentaje_avance(
-                int(input("ingrese el porcentaje de avance: ")))
+            while True:
+                try:
+                    obj_obra.actualizar_porcentaje_avance(
+                        int(input("ingrese el porcentaje de avance: ")))
+                    break
+                except ValueError as e:
+                    print('Ingrese numeros: ', e)
 
             # incrementamos el plazo de meses (punto 9)
-            obj_obra.incrementar_plazo(
-                int(input("ingrese en cuantos meses incrementara el plazo: ")))
-
+            while True:
+                try:
+                    obj_obra.incrementar_plazo(
+                    int(input("ingrese en cuantos meses incrementara el plazo: ")))
+                    break
+                except ValueError as e:
+                    print('Ingrese numeros: ', e)
             # agregamos imagenes (punto 10)
             obj_obra.agregar_imagenes()
 
             # incrementamo mano de obra en cantidad de empleados (punto 11)
-            obj_obra.incrementar_mano_obra(
-                int(input("Ingrese la cantidad de nuevos empleados que se agregará: ")))
+            while True:
+                try:
+                    obj_obra.incrementar_mano_obra(
+                        int(input("Ingrese la cantidad de nuevos empleados que se agregará: ")))
+                    break
+                except ValueError as e:
+                    print('Ingrese numeros: ', e)
 
             # Punto 2 de la consiga: crear 2 obras en etapa finalizada y una en rescindida
 
