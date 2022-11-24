@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from abc import ABC
+import sqlite3
+import os
 
 from dao.dao import DAO
 from dao.etapa_dao import Etapa_DAO
@@ -14,14 +16,15 @@ from dao.tipo_contratacion_dao import TipoContratacion_DAO
 from dao.fuente_financiamiento_dao import FuenteFinanciamiento_DAO
 from dao.imagen_dao import Imagen_DAO
 
+
 class GestionarDAO(ABC):
-    
+
     @classmethod
-    def importar_csv(cls,archivo_csv:str):
+    def importar_csv(cls, archivo_csv: str):
         df = pd.read_csv(archivo_csv, sep=';', encoding='utf8')
-        #print(df.head())
-        #print(df.count())
-        #print(df.columns)
+        # print(df.head())
+        # print(df.count())
+        # print(df.columns)
         """
         for x in df['etapa']:
             print(f"{x}")
@@ -47,13 +50,15 @@ class GestionarDAO(ABC):
         obra_dao = cls.crear_objeto_dao("Obra_DAO")
         cls.crear_tabla(obra_dao)
 
-        #Eliminar valores NA o NaN (nulos o no disponibles)
-        df.dropna(subset = ["etapa","tipo","area_responsable","descripcion","monto_contrato","comuna","barrio","direccion"], axis = 0, inplace = True)
-        #print(df.count())
+        # Eliminar valores NA o NaN (nulos o no disponibles)
+        df.dropna(subset=["etapa", "tipo", "area_responsable", "descripcion",
+                  "monto_contrato", "comuna", "barrio", "direccion"], axis=0, inplace=True)
+        # print(df.count())
 
-        #Obtener los valores únicos (no repetidos) de la tupla
-        obras = list(set(zip(df['etapa'],df['tipo'],df['area_responsable'],df['cuit_contratista'],df['licitacion_oferta_empresa'],df['entorno'],df['nombre'],df['descripcion'],df['monto_contrato'],df['comuna'],df['barrio'],df['contratacion_tipo'],df['financiamiento'],df['imagen_1'],df['imagen_2'],df['imagen_3'],df['imagen_4'],df['direccion'],df['fecha_inicio'],df['fecha_fin_inicial'],df['plazo_meses'],df['porcentaje_avance'],df['licitacion_anio'],df['nro_contratacion'],df['beneficiarios'],df['mano_obra'],df['destacada'],df['expediente-numero'])))
-        #print(obras)
+        # Obtener los valores únicos (no repetidos) de la tupla
+        obras = list(set(zip(df['etapa'], df['tipo'], df['area_responsable'], df['cuit_contratista'], df['licitacion_oferta_empresa'], df['entorno'], df['nombre'], df['descripcion'], df['monto_contrato'], df['comuna'], df['barrio'], df['contratacion_tipo'], df['financiamiento'], df['imagen_1'],
+                     df['imagen_2'], df['imagen_3'], df['imagen_4'], df['direccion'], df['fecha_inicio'], df['fecha_fin_inicial'], df['plazo_meses'], df['porcentaje_avance'], df['licitacion_anio'], df['nro_contratacion'], df['beneficiarios'], df['mano_obra'], df['destacada'], df['expediente-numero'])))
+        # print(obras)
         print("Importando datos del archivo .csv a una base de datos SQLite")
         cargando = ""
         for elem in obras:
@@ -66,104 +71,109 @@ class GestionarDAO(ABC):
             if elem[0] is not np.nan:
                 lista = []
                 lista.append(elem[0])
-                #print(lista)
+                # print(lista)
                 id_etapa = etapa_dao.importar_registro_csv(lista)
-                #En caso que el registro ya exista en la bd
+                # En caso que el registro ya exista en la bd
                 if id_etapa == 0:
                     registro = etapa_dao.obtener_registro_desde_csv(elem[0])
-                    if isinstance(registro,tuple):
+                    if isinstance(registro, tuple):
                         id_etapa = registro[0]
 
             # Insertar datos en la tabla empresas
             # columnas: cuit_contratista y licitacion_oferta_empresa
             id_empresa = 0
             if elem[3] is not np.nan and elem[4] is not np.nan:
-                lista = (elem[3],elem[4])
-                #print(lista)
+                lista = (elem[3], elem[4])
+                # print(lista)
                 id_empresa = empresa_dao.importar_registro_csv(lista)
-                #En caso que el registro ya exista en la bd
+                # En caso que el registro ya exista en la bd
                 if id_empresa == 0:
                     registro = empresa_dao.obtener_registro_desde_csv(elem[3])
-                    #print(registro)
-                    if isinstance(registro,tuple):
+                    # print(registro)
+                    if isinstance(registro, tuple):
                         id_empresa = registro[0]
-            
+
             # Insertar datos en la tabla tipos_obras
             # columna: tipo
             id_tipo_obra = 0
             if elem[1] is not np.nan:
                 lista = []
                 lista.append(elem[1])
-                #print(lista)
+                # print(lista)
                 id_tipo_obra = tipo_obra_dao.importar_registro_csv(lista)
-                #En caso que el registro ya exista en la bd
+                # En caso que el registro ya exista en la bd
                 if id_tipo_obra == 0:
-                    registro = tipo_obra_dao.obtener_registro_desde_csv(elem[1])
-                    if isinstance(registro,tuple):
+                    registro = tipo_obra_dao.obtener_registro_desde_csv(
+                        elem[1])
+                    if isinstance(registro, tuple):
                         id_tipo_obra = registro[0]
-            
+
             # Insertar datos en la tabla areas
             # columna: area_responsable
             id_area = 0
             if elem[2] is not np.nan:
                 lista = []
                 lista.append(elem[2])
-                #print(lista)
+                # print(lista)
                 id_area = area_dao.importar_registro_csv(lista)
-                #En caso que el registro ya exista en la bd
+                # En caso que el registro ya exista en la bd
                 if id_area == 0:
                     registro = area_dao.obtener_registro_desde_csv(elem[2])
-                    if isinstance(registro,tuple):
+                    if isinstance(registro, tuple):
                         id_area = registro[0]
-            
+
             # Insertar datos en la tabla comunas
             # columna: comuna
             if elem[2] is not np.nan:
                 lista = []
                 lista.append(elem[9])
-                #print(lista)
+                # print(lista)
                 comuna_dao.importar_registro_csv(lista)
-            
+
             # Insertar datos en la tabla barrios
             # columnas: comuna y barrio
             id_barrio = 0
             if elem[9] is not np.nan and elem[10] is not np.nan:
-                lista = (elem[10],elem[9])
-                #print(lista)
+                lista = (elem[10], elem[9])
+                # print(lista)
                 id_barrio = barrio_dao.importar_registro_csv(lista)
-                #En caso que el registro ya exista en la bd
+                # En caso que el registro ya exista en la bd
                 if id_barrio == 0:
                     registro = barrio_dao.obtener_registro_desde_csv(elem[10])
-                    #print(registro)
-                    if isinstance(registro,tuple):
+                    # print(registro)
+                    if isinstance(registro, tuple):
                         id_barrio = registro[0]
-            
+
             # Insertar datos en la tabla tipos_contratacion
             # columna: contratacion_tipo
             id_tipo_contratacion = 0
             if elem[11] is not np.nan:
                 lista = []
                 lista.append(elem[11])
-                #print(lista)
-                id_tipo_contratacion = tipo_contratacion_dao.importar_registro_csv(lista)
-                #En caso que el registro ya exista en la bd
+                # print(lista)
+                id_tipo_contratacion = tipo_contratacion_dao.importar_registro_csv(
+                    lista)
+                # En caso que el registro ya exista en la bd
                 if id_tipo_contratacion == 0:
-                    registro = tipo_contratacion_dao.obtener_registro_desde_csv(elem[11])
-                    if isinstance(registro,tuple):
+                    registro = tipo_contratacion_dao.obtener_registro_desde_csv(
+                        elem[11])
+                    if isinstance(registro, tuple):
                         id_tipo_contratacion = registro[0]
-            
+
             # Insertar datos en la tabla fuentes_financiamiento
             # columna: financiamiento
             id_financiamiento = 0
             if elem[12] is not np.nan:
                 lista = []
                 lista.append(elem[12])
-                #print(lista)
-                id_financiamiento = financiamiento_dao.importar_registro_csv(lista)
-                #En caso que el registro ya exista en la bd
+                # print(lista)
+                id_financiamiento = financiamiento_dao.importar_registro_csv(
+                    lista)
+                # En caso que el registro ya exista en la bd
                 if id_financiamiento == 0:
-                    registro = financiamiento_dao.obtener_registro_desde_csv(elem[12])
-                    if isinstance(registro,tuple):
+                    registro = financiamiento_dao.obtener_registro_desde_csv(
+                        elem[12])
+                    if isinstance(registro, tuple):
                         id_financiamiento = registro[0]
 
             # Insertar datos en la tabla Obras
@@ -172,114 +182,115 @@ class GestionarDAO(ABC):
                         ,nro_contratacion,beneficiarios,mano_obra,destacada,expediente-numero
                         ,id_etapa,id_empresa,id_tipo_obra,id_area,id_barrio,id_tipo_contratacion,id_financiamiento"""
             id_obra = 0
-            lista_id = [id_etapa,id_empresa,id_tipo_obra,id_area,id_barrio,id_tipo_contratacion,id_financiamiento]
-            #descripcion
+            lista_id = [id_etapa, id_empresa, id_tipo_obra, id_area,
+                        id_barrio, id_tipo_contratacion, id_financiamiento]
+            # descripcion
             if elem[7] is not np.nan:
-                lista = [elem[5],elem[6],elem[7]]
-                #monto_contrato
+                lista = [elem[5], elem[6], elem[7]]
+                # monto_contrato
                 if elem[8] is not np.nan:
                     valor = elem[8]
                 else:
                     valor = ""
                 lista.append(valor)
-                #direccion
+                # direccion
                 if elem[17] is not np.nan:
                     valor = elem[17]
                 else:
                     valor = ""
                 lista.append(valor)
-                #fecha_inicio
+                # fecha_inicio
                 if elem[18] is not np.nan:
                     valor = elem[18]
                 else:
                     valor = ""
                 lista.append(valor)
-                #fecha_fin_inicial
+                # fecha_fin_inicial
                 if elem[19] is not np.nan:
                     valor = elem[19]
                 else:
                     valor = ""
                 lista.append(valor)
-                #plazo_meses
+                # plazo_meses
                 if elem[20] is not np.nan:
                     valor = elem[20]
                 else:
                     valor = ""
                 lista.append(valor)
-                #porcentaje_avance
+                # porcentaje_avance
                 if elem[21] is not np.nan:
                     valor = elem[21]
                 else:
                     valor = ""
                 lista.append(valor)
-                #licitacion_anio
+                # licitacion_anio
                 if elem[22] is not np.nan:
                     valor = elem[22]
                 else:
                     valor = ""
                 lista.append(valor)
-                #nro_contratacion
+                # nro_contratacion
                 if elem[23] is not np.nan:
                     valor = elem[23]
                 else:
                     valor = ""
                 lista.append(valor)
-                #beneficiarios
+                # beneficiarios
                 if elem[24] is not np.nan:
                     valor = elem[24]
                 else:
                     valor = ""
                 lista.append(valor)
-                #mano_obra
+                # mano_obra
                 if elem[25] is not np.nan:
                     valor = elem[25]
                 else:
                     valor = ""
                 lista.append(valor)
-                #destacada
+                # destacada
                 if elem[26] is not np.nan:
                     valor = elem[26]
                 else:
                     valor = ""
                 lista.append(valor)
-                #expediente_numero
+                # expediente_numero
                 if elem[27] is not np.nan:
                     valor = elem[27]
                 else:
                     valor = ""
                 lista.append(valor)
-                #print(lista)
-                id_obra = obra_dao.importar_registro_csv(lista,lista_id)
-            
+                # print(lista)
+                id_obra = obra_dao.importar_registro_csv(lista, lista_id)
+
             # Insertar datos en la tabla imagenes
             # columna: imagen_1
             if elem[13] is not np.nan and id_obra > 0:
                 lista = []
                 lista.append(elem[13])
-                #print(lista)
-                id_imagen = imagen_dao.importar_registro_csv(lista,id_obra)
+                # print(lista)
+                id_imagen = imagen_dao.importar_registro_csv(lista, id_obra)
             # columna: imagen_2
             if elem[14] is not np.nan and id_obra > 0:
                 lista = []
                 lista.append(elem[14])
-                #print(lista)
-                id_imagen = imagen_dao.importar_registro_csv(lista,id_obra)
+                # print(lista)
+                id_imagen = imagen_dao.importar_registro_csv(lista, id_obra)
             # columna: imagen_3
             if elem[15] is not np.nan and id_obra > 0:
                 lista = []
                 lista.append(elem[15])
-                #print(lista)
-                id_imagen = imagen_dao.importar_registro_csv(lista,id_obra)
+                # print(lista)
+                id_imagen = imagen_dao.importar_registro_csv(lista, id_obra)
             # columna: imagen_4
             if elem[16] is not np.nan and id_obra > 0:
                 lista = []
                 lista.append(elem[16])
-                #print(lista)
-                id_imagen = imagen_dao.importar_registro_csv(lista,id_obra)
+                # print(lista)
+                id_imagen = imagen_dao.importar_registro_csv(lista, id_obra)
         print("Los datos se han importado correctamente")
 
     @classmethod
-    def crear_objeto_dao(cls,tipo_dao:str) -> DAO:
+    def crear_objeto_dao(cls, tipo_dao: str) -> DAO:
         if tipo_dao == "Etapa_DAO":
             return Etapa_DAO()
         if tipo_dao == "Empresa_DAO":
@@ -302,42 +313,152 @@ class GestionarDAO(ABC):
             return Obra_DAO()
 
     @classmethod
-    def crear_tabla(cls,objeto:DAO):
+    def crear_tabla(cls, objeto: DAO):
         objeto.crear_tabla()
-    
+
     @classmethod
-    def insertar_registro(cls,objeto:DAO,objeto_modelo,lista_id=()):
-        #objeto.insertar_registro(objeto_modelo)
+    def insertar_registro(cls, objeto: DAO, objeto_modelo, lista_id=()):
+        # objeto.insertar_registro(objeto_modelo)
         if lista_id == ():
             last_id = objeto.insertar_registro(objeto_modelo)
         else:
-            last_id =objeto.insertar_registro(objeto_modelo, lista_id)
+            last_id = objeto.insertar_registro(objeto_modelo, lista_id)
         return last_id
+
+    def SQL_obtener_obras_etapa():
+
+        # Crea un objeto de conexión a la base de datos SQLite
+        con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+        # Con la conexión, crea un objeto cursor
+        cur = con.cursor()
+
+        # El resultado de "cursor.execute" puede ser iterado por fila
+        # punt 15 a) consultar todas las areas
+        for row in cur.execute("SELECT count(*), etapas.descripcion FROM obras LEFT JOIN etapas ON obras.id_etapa = etapas.id GROUP BY id_etapa"):
+            print(row)
+
+        # No te olvides de cerrar la conexión
+        con.close()
+    
+
+    def SQL_obtener_tabla(nombre_tabla: str):
+
+        # Crea un objeto de conexión a la base de datos SQLite
+        con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+        # Con la conexión, crea un objeto cursor
+        cur = con.cursor()
+
+        # El resultado de "cursor.execute" puede ser iterado por fila
+        # punt 15 a) consultar todas las areas
+        for row in cur.execute(f"SELECT * FROM {nombre_tabla}"):
+            print(row)
+
+        # No te olvides de cerrar la conexión
+        con.close()
+
+
+
+    def SQL_obtener_obras_tipoObra():
+
+        # Crea un objeto de conexión a la base de datos SQLite
+        con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+        # Con la conexión, crea un objeto cursor
+        cur = con.cursor()
+
+        # El resultado de "cursor.execute" puede ser iterado por fila
+        # punt 15 a) consultar todas las areas
+        for row in cur.execute("SELECT count(*), tipos_obras.descripcion FROM obras LEFT JOIN tipos_obras ON obras.id_tipo_obra = tipos_obras.id GROUP BY id_tipo_obra"):
+
+            print(row)
+
+        # No te olvides de cerrar la conexión
+        con.close()
+
+    
+
+    def SQL_obtener_barrios_comunas():
+
+        # Crea un objeto de conexión a la base de datos SQLite
+        con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+        # Con la conexión, crea un objeto cursor
+        cur = con.cursor()
+
+        # El resultado de "cursor.execute" puede ser iterado por fila
+        # punt 15 a) consultar todas las areas
+        for row in cur.execute("SELECT nombre, nro_comuna FROM barrios WHERE nro_comuna IN(1,2,3) ORDER BY nro_comuna"):
+
+            print(row)
+
+        # No te olvides de cerrar la conexión
+        con.close()
+
+
+    def SQL_obtener_finalizadas():
+
+        # Crea un objeto de conexión a la base de datos SQLite
+        con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+        # Con la conexión, crea un objeto cursor
+        cur = con.cursor()
+
+        # El resultado de "cursor.execute" puede ser iterado por fila
+        # punt 15 a) consultar todas las areas
+        for row in cur.execute("SELECT count(*) FROM obras WHERE id_etapa = 1 AND id_barrio BETWEEN 1 AND 9"):
+
+            print(row)
+
+        # No te olvides de cerrar la conexión
+        con.close()
+
+  
+    
+    def SQL_obtener_finalizadas_meses():
+
+        # Crea un objeto de conexión a la base de datos SQLite
+        con = sqlite3.connect(os.getcwd()+"/" + "obras_urbanas_caba.db")
+
+        # Con la conexión, crea un objeto cursor
+        cur = con.cursor()
+
+        # El resultado de "cursor.execute" puede ser iterado por fila
+        # punt 15 a) consultar todas las areas
+        for row in cur.execute("SELECT count(*) FROM obras WHERE id_etapa = 1 AND plazo_meses <= 24"):
+
+            print(row)
+
+        # No te olvides de cerrar la conexión
+        con.close()
     
     @classmethod
-    def insertar_registro_general(cls,objeto:DAO,objeto_modelo):
+    def insertar_registro_general(cls, objeto: DAO, objeto_modelo):
         objeto.insertar_registro(objeto_modelo)
-   
+
+
+
     @classmethod
-    def insertar_varios_registros(cls,objeto:DAO,listado):
+    def insertar_varios_registros(cls, objeto: DAO, listado):
         pass
 
     @classmethod
-    def seleccionar_registro(cls,objeto:DAO,objeto_modelo):
+    def seleccionar_registro(cls, objeto: DAO, objeto_modelo):
         pass
 
     @classmethod
-    def seleccionar_todos_registros(cls,objeto:DAO):
+    def seleccionar_todos_registros(cls, objeto: DAO):
         pass
 
     @classmethod
-    def eliminar_registro(cls,objeto:DAO,objeto_modelo):
+    def eliminar_registro(cls, objeto: DAO, objeto_modelo):
         pass
 
     @classmethod
-    def modificar_registro(cls,objeto:DAO,objeto_modelo):
+    def modificar_registro(cls, objeto: DAO, objeto_modelo):
         pass
 
     @classmethod
-    def obtener_registros(cls,objeto:DAO,objeto_modelo) -> list:
+    def obtener_registros(cls, objeto: DAO, objeto_modelo) -> list:
         pass
