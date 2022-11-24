@@ -296,6 +296,4 @@ class Obra():
         self.etapa = obj_etapa_fin
 
     def rescindir_obra(self, obj_etapa_resc):
-        self.etapa = obj_etapa_resc
-
- 
+        self.etapa = obj_etapa_resc 

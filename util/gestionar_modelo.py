@@ -10,7 +10,6 @@ from model.fuenteFinanciamiento import FuenteFinanciamiento
 from model.imagen import Imagen
 from model.obra import Obra
 
-
 class GestionarModelo(ABC):
     __listado_obras = []
     __listado_etapas = []
@@ -76,15 +75,20 @@ class GestionarModelo(ABC):
         obj = Imagen(nombre)
         cls.__listado_imagenes.append(obj)
         return obj
-
-    # def __str__(cls):
-    #     return 'El listado de obras es: ' + cls.__listado_obras
-    
+ 
     @classmethod
-    def nueva_obra(cls, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str,  plazo_meses: int, beneficiarios: str, ) -> Obra:
-        obj = Obra( entorno, nombre, etapa, tipo_obra, area_responsable, descripcion, monto_contrato, barrio, direccion, plazo_meses, beneficiarios)
+    def nueva_obra(cls, entorno: str, nombre: str, etapa: Etapa,
+                 tipo_obra: TipoObra, area_responsable: Area,
+                 descripcion: str, monto_contrato: float,
+                 barrio: Barrio, direccion: str,  plazo_meses: int,
+                 beneficiarios: str, ) -> Obra:
+
+        obj = Obra( entorno, nombre, etapa, tipo_obra,
+                  area_responsable, descripcion,
+                  monto_contrato, barrio, direccion,
+                  plazo_meses, beneficiarios)
+
         cls.__listado_obras.append(obj)
-        #print(cls.__listado_obras[0])
         return obj
 
     @classmethod

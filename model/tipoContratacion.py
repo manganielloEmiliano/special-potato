@@ -10,6 +10,7 @@ class TipoContratacion():
     @descripcion.setter
     def descripcion(self, valor):
         self.__descripcion = valor
+    
     def __str__(self):
         return self.descripcion
 
