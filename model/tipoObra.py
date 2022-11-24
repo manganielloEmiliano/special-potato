@@ -7,5 +7,8 @@ class TipoObra():
         return self.__descripcion
 
     @descripcion.setter
-    def cuit(self, valor):
+    def descripcion(self, valor):
         self.__descripcion = valor
+
+    def __str__(self):
+        return self.descripcion

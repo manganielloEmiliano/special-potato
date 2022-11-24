@@ -3,3 +3,6 @@
 
 # no pushear pycache
 **/__pycache__
+
+# no pushear .vscode
+**/.vscode

@@ -1,5 +1,5 @@
 class Comuna():
-    def __init__(self, numero):
+    def __init__(self, numero:int):
         self.numero = numero
 
     @property
@@ -11,4 +11,4 @@ class Comuna():
         self.__numero = valor
     
     def __str__(self):
-        return " la comuna: " + self.numero
+        return " la comuna: " + str(self.numero)

@@ -1,5 +1,7 @@
+from model.comuna import Comuna
+
 class Barrio():
-    def __init__(self, nombre, comuna):
+    def __init__(self, nombre, comuna:Comuna):
         self.nombre = nombre
         self.comuna = comuna
 
@@ -20,4 +22,4 @@ class Barrio():
         self.__comuna = valor
 
     def __str__(self):
-        return "barrio: " + self.nombre + " de la comuna: " + self.comuna
+        return  self.nombre  + str(self.comuna)

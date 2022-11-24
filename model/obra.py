@@ -1,6 +1,17 @@
-import TipoContratacion
+from model.tipoContratacion import TipoContratacion
+from model.etapa import Etapa
+from model.tipoObra import TipoObra
+from model.barrio import Barrio
+from model.area import Area
+from model.empresa import Empresa
+from model.fuenteFinanciamiento import FuenteFinanciamiento
+from model.etapa import Etapa
+from model.imagen import Imagen
+
+
 class Obra():
-    def __init__(self, entorno, nombre, etapa, tipo_obra, area_responsable, descripcion, monto_contrato, barrio, direccion, fecha_inicio, fecha_fin_inicial, plazo_meses, porcentaje_avance, imagenes, empresa, licitacion_anio, tipo_contratacion, nro_contratacion, beneficiarios, mano_obra, destacada, expediente_numero, fuente_financiamiento):
+
+    def __init__(self, entorno: str, nombre: str, etapa: Etapa, tipo_obra: TipoObra, area_responsable: Area, descripcion: str, monto_contrato: float, barrio: Barrio, direccion: str,  plazo_meses: int, beneficiarios: str, tipo_contratacion="0", nro_contratacion="0", mano_obra="0", destacada=0, expediente_numero="0", fuente_financiamiento ="0", fecha_inicio="0", fecha_fin_inicial="0", porcentaje_avance = 0, imagenes = 0, empresa="0", licitacion_anio="0"):
         self.entorno = entorno
         self.nombre = nombre
         self.etapa = etapa
@@ -21,17 +32,18 @@ class Obra():
         self.nro_contratacion = nro_contratacion
         self.beneficiarios = beneficiarios
         self.mano_obra = mano_obra
+        self.destacada = destacada
         self.expediente_numero = expediente_numero
         self.fuente_financiamiento = fuente_financiamiento
 
-
+        print("obra creada")
 
     @property
     def entorno(self):
         return self.__entorno
 
     @entorno.setter
-    def razon_social(self, value):
+    def entorno(self, value):
         self.__entorno = value
 
     @property
@@ -44,7 +56,7 @@ class Obra():
 
     @property
     def etapa(self):
-        return self.__nombre
+        return self.__etapa
 
     @etapa.setter
     def etapa(self, value):
@@ -52,7 +64,7 @@ class Obra():
 
     @property
     def tipo_obra(self):
-        return self.__nombre
+        return self.__tipo_obra
 
     @tipo_obra.setter
     def tipo_obra(self, value):
@@ -124,7 +136,7 @@ class Obra():
 
     @property
     def porcentaje_avance(self):
-        return self.__plazo_meses
+        return self.__porcentaje_avance
 
     @porcentaje_avance.setter
     def porcentaje_avance(self, value):
@@ -203,15 +215,87 @@ class Obra():
         self.__expediente_numero = value
 
     @property
+    def destacada(self):
+        return self.__destacada
+
+    @destacada.setter
+    def destacada(self, value):
+        self.__destacada = value
+
+    @property
     def fuente_financiamiento(self):
         return self.__fuente_financiamiento
 
     @fuente_financiamiento.setter
     def fuente_financiamiento(self, value):
         self.__fuente_financiamiento = value
-    
+
     def __str__(self) -> str:
-        return "el entorno es: "+self.entorno +"\n el nombre de la obra es: "+self.nombre +"\n esta en la etapa de: "+self.etapa+"\n el tipo de obra es: "+self.tipo_obra+"\n el area responsable es:"+self.__area_responsable + "\n la descripcion es: "+self.__descripcion +"\n el monto del contrato es: "+self.monto_contrato+"\nubicada  en el barrio de: "+self.barrio+"\n la direccion es:"+self.direccion+"\n fecha de inicio"+self.fecha_inicio+"\n la fecha prevista para la finalizacion es: "+self.__fecha_fin_inicial+"\n el plazo de meses estimado es de: "+self.plazo_meses+"el porcentaje de avance es de:"+self.porcentaje_avance+"%"+"\nla empresa acargo es:"+self.empresa+"\nla licitacion es del anio"+self.licitacion_anio+"\nel tipo de contratacion es: "+self.tipo_contratacion+"\nel numero de contratacion es: "+self.nro_contratacion+"\nlos beneficiarios son: "+self.beneficiarios+"\nla mano de obra esta compuesta por: "+self.mano_obra+"\nel expediente es el numero: "+self.expediente_numero+"\nla fuente de financiamiendo es: "+self.fuente_financiamiento
+        
+        if(self.destacada):
+            res = 'está destacada'
+        else:
+            res = 'no está destacada'
+
+        return "el entorno es: " + str(self.entorno) + "\nEl nombre de la obra es: " + str(self.nombre) + "\nEstá en la etapa de: " + str(self.etapa) + "\nEl tipo de obra es: " + str(self.tipo_obra) + "\nEl área responsable es: " + str(self.area_responsable) + "\nLa descripción es: " + str(self.descripcion) + "\nEl monto del contrato es: " + str(self.monto_contrato) + "\nUbicada en el barrio de: " + str(self.barrio) + "\nLa dirección es: " + str(self.direccion) + "\nFecha de inicio: " + str(self.fecha_inicio) + "\nLa fecha prevista para la finalizacion es: " + str(self.fecha_fin_inicial) + "\nEl plazo de meses estimado es de: " + str(self.plazo_meses) + " meses" + "\nEl porcentaje de avance es de: " + str(self.porcentaje_avance) + "%" + "\nLa empresa a cargo es: " + str(self.empresa) + "\nLa licitación es del año: " + str(self.licitacion_anio) + "\nEl tipo de contratación es: " + str(self.tipo_contratacion) + "\nEl número de contratación es: " + str(self.nro_contratacion) + "\nLos beneficiarios son: " + str(self.beneficiarios) + "\nLa mano de obra está compuesta por: " + str(self.mano_obra) + " empleados" + "\nEl expediente es el número: " + str(self.expediente_numero) + " \n " + str(self.fuente_financiamiento) + "\nLa obra " + res + "\nLas imágenes son: " + str(self.imagenes)
 
     def iniciar_contratacion(self, tipo: TipoContratacion, nro_contratacion):
-        pass
+
+        self.tipo_contratacion = tipo
+        self.nro_contratacion = nro_contratacion
+    
+    def adjudicar_obra(self, empresa:Empresa, expediente_numero:str):
+
+        self.empresa = empresa
+        self.expediente_numero = expediente_numero
+    
+    def es_destacada(self):
+        es_destacada = int(input("Esta obra es destacada? [1 para sí, 0 para no]: "))
+        if es_destacada == 0:
+            return False
+        else:
+            return True
+    
+    def iniciar_obra(self,destacada:bool,fecha_inicio:str,fecha_fin_inicial,fuente_financiamiento:FuenteFinanciamiento,mano_obra:int):
+        self.destacada = destacada
+        self.fecha_inicio = fecha_inicio
+        self.fecha_fin_inicial = fecha_fin_inicial
+        self.fuente_financiamiento = fuente_financiamiento
+        self.mano_obra = mano_obra
+
+    def actualizar_porcentaje_avance(self,porc_incremento:int):
+        self.porcentaje_avance =self.porcentaje_avance + porc_incremento
+    
+    def incrementar_plazo(self,meses:int):
+        self.plazo_meses =self.plazo_meses + meses
+    
+    def agregar_imagenes(self):
+        
+        self.imagenes = []
+        
+        cond = True
+        while(cond):
+
+            imagen=Imagen(input("ingrese el nombre de la imagen: "))
+            self.imagenes.append(imagen.nombre)
+            response = input('Desea agregar más imágenes? [s/n]: ')
+            
+            while(response != "n" and response != "N" and response != "s" and response != "S"):
+                print('(!) error: Responda sí o no')
+                response = input('Desea agregar más imágenes? [s/n]: ')
+
+            # Si el usuario ingresa N cambiamos la condición a False y salimos del bucle
+            if(response == 'n' or response == 'N'):
+                cond = False
+
+    def incrementar_mano_obra(self, cantidad:int):
+        self.mano_obra = self.mano_obra + cantidad
+
+    def finalizar_obra(self, obj_etapa_fin):
+        self.porcentaje_avance = 100
+        self.etapa = obj_etapa_fin
+
+    def rescindir_obra(self, obj_etapa_resc):
+        self.etapa = obj_etapa_resc
+
+ 

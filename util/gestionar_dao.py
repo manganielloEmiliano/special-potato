@@ -306,9 +306,18 @@ class GestionarDAO(ABC):
         objeto.crear_tabla()
     
     @classmethod
-    def insertar_registro(cls,objeto:DAO,objeto_modelo):
+    def insertar_registro(cls,objeto:DAO,objeto_modelo,lista_id=()):
+        #objeto.insertar_registro(objeto_modelo)
+        if lista_id == ():
+            last_id = objeto.insertar_registro(objeto_modelo)
+        else:
+            last_id =objeto.insertar_registro(objeto_modelo, lista_id)
+        return last_id
+    
+    @classmethod
+    def insertar_registro_general(cls,objeto:DAO,objeto_modelo):
         objeto.insertar_registro(objeto_modelo)
-
+   
     @classmethod
     def insertar_varios_registros(cls,objeto:DAO,listado):
         pass
