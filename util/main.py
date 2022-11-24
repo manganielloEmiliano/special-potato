@@ -9,7 +9,6 @@ from model.barrio import Barrio
 from model.comuna import Comuna
 from model.empresa import Empresa
 
-
 class Main(ABC):
 
     @classmethod
@@ -49,8 +48,15 @@ class Main(ABC):
             # creamos Obra
             try:
                 print(f"se va a crear la obra ")
-                obj_obra = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")), str(input("ingrese el nombre de la obra: ")), obj_etapa, preguntar_tipo_obra(), preguntar_area(), str(input("ingrese una descripcion: ")), float(
-                    input("ingrese el monto del contrato: ")), preguntar_barrio(respuesta_comuna), str(input("ingrese la direcccion: ")), int(input("ingrese el plazo en meses: ")), str(input("ingrese a los beneficiarios: ")))
+                obj_obra = GestionarModelo.nueva_obra(str(input("ingrese el entorno: ")),
+                                                     str(input("ingrese el nombre de la obra: ")),
+                                                     obj_etapa, preguntar_tipo_obra(), preguntar_area(),
+                                                     str(input("ingrese una descripcion: ")),
+                                                     float(input("ingrese el monto del contrato: ")),
+                                                     preguntar_barrio(respuesta_comuna),
+                                                     str(input("ingrese la direcccion: ")),
+                                                     int(input("ingrese el plazo en meses: ")),
+                                                     str(input("ingrese a los beneficiarios: ")))
                 print(f"Obra {i+1} creada con éxito ")
                 i = i + 1
             except:
@@ -77,13 +83,16 @@ class Main(ABC):
                 "ingrese el numero de contratacion: "))
             
             # vamos a adjudicar la obra a una empresa (punto 6)
-            obj_obra.adjudicar_obra(GestionarModelo.nueva_empresa(input("ingrese cuit de la empresa: "), input("ingrese la razon social: ")), input(
-                "ingrese el numero de expediente: "))
+            obj_obra.adjudicar_obra(GestionarModelo.nueva_empresa(input("ingrese cuit de la empresa: "),
+                                    input("ingrese la razon social: ")),
+                                    input("ingrese el numero de expediente: "))
 
-                # vamos a iniciar obra (punto 7)
+            # vamos a iniciar obra (punto 7)
             obra_destacada = obj_obra.es_destacada()
-            obj_obra.iniciar_obra(obra_destacada, input("ingrese la fecha de inicio: "), input(
-                "ingrese la fecha de finalizacion: "), preguntar_fuente_financiamiento(), int(input("ingrese la cantidad de mano de obra: ")))
+            obj_obra.iniciar_obra(obra_destacada, input("ingrese la fecha de inicio: "),
+                                 input("ingrese la fecha de finalizacion: "),
+                                 preguntar_fuente_financiamiento(),
+                                 int(input("ingrese la cantidad de mano de obra: ")))
 
             # actualizamos el porcentaje de avance (punto 8)
             obj_obra.actualizar_porcentaje_avance(
@@ -117,7 +126,9 @@ class Main(ABC):
             print(obj_obra)
             print()
             print("######################################")
+
             #punto 14 ,persistir las obras en la bd
+            
             listaid = []
             id_et = obtener_id_etapa(obj_obra)
             listaid.append(id_et)
@@ -141,26 +152,33 @@ class Main(ABC):
         print("tipos de area")
         obtener_tabla("areas")
         print("######################################")
+        
+        print("######################################")
         print("tipos de obras")
         obtener_tabla("tipos_obras")
         print("######################################")
 
+        print("######################################")
         print("obtener cantidad de obras por etapa")
         obtener_obras_etapa()
         print("######################################")
 
+        print("######################################")
         print("obtener cantidad de obras por tipo de obra")
         obtener_obras_tipoObra()
         print("######################################")
-
+        
+        print("######################################")
         print("obtener barrios de las comunas 1,2 y 3")
         obtener_barrios_comunas()
         print("######################################")
 
+        print("######################################")
         print("obtener obras finalizadas de la comuna 1")
         obtener_finalizadas()
         print("######################################")
 
+        print("######################################")
         print("obtener obras finalizadas con un plazo menor o igual a 24 meses")
         obtener_finalizadas_meses()
         print("######################################")
