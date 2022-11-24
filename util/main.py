@@ -2,12 +2,7 @@ from abc import ABC
 from util.gestionar_dao import GestionarDAO
 from util.gestionar_modelo import GestionarModelo
 from util.funciones import *
-from dao.area_dao import Area_DAO
-from dao.etapa_dao import Etapa_DAO
-from model.area import Area
-from model.barrio import Barrio
-from model.comuna import Comuna
-from model.empresa import Empresa
+
 
 
 class Main(ABC):

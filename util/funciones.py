@@ -7,8 +7,6 @@ from dao.area_dao import Area_DAO
 from dao.barrio_dao import Barrio_DAO
 from dao.tipo_contratacion_dao import TipoContratacion_DAO
 from dao.fuente_financiamiento_dao import FuenteFinanciamiento_DAO
-import sqlite3
-import os
 
 
 def preguntar_tipo_obra():
